@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>অ্যাসাইনমেন্ট কভার পেজ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#eee;color:#111;font-family:"Noto Serif Bengali",serif}
+.panel{max-width:560px;margin:24px auto;padding:20px}.controls{background:#fff;border-radius:14px;padding:20px;box-shadow:0 5px 24px #0001;margin-bottom:20px}
+h2{margin:0 0 14px;font-size:22px}label{display:block;font-weight:600;margin:12px 0 6px}
+input{width:100%;padding:12px 14px;border:1px solid #ccc;border-radius:9px;font:16px "Noto Serif Bengali",serif}
+button{width:100%;margin-top:16px;padding:13px;border:0;border-radius:9px;background:#111;color:#fff;font:600 16px "Noto Serif Bengali",serif}
+.hint{font-size:13px;color:#666;margin-top:8px}
+.page{width:210mm;height:297mm;background:#fff;margin:auto;position:relative;overflow:hidden;padding:15mm;box-shadow:0 5px 25px #0002}
+.border{position:absolute;inset:7mm;border:1.4px solid #333}.inner{position:absolute;inset:8.8mm;border:.6px solid #777}
+.corner{position:absolute;font:24px serif}.tl{top:7.5mm;left:8.5mm}.tr{top:7.5mm;right:8.5mm}.bl{bottom:7.5mm;left:8.5mm}.br{bottom:7.5mm;right:8.5mm}
+.header{text-align:center;margin-top:19mm}.college{font-size:22px;font-weight:700;line-height:1.35}.dept{font-size:17px;font-weight:600;margin-top:2mm}
+.divider{margin:5mm auto;width:80mm;display:flex;align-items:center;gap:5mm}.divider:before,.divider:after{content:"";height:1.4px;background:#111;flex:1}.star{font-size:20px}
+.badge{display:inline-block;border:1px solid #555;border-radius:4mm;padding:2.5mm 8mm 2mm;font-size:15px;font-weight:700}
+.info{margin:14mm 13mm 0}.row{display:grid;grid-template-columns:48mm 7mm 1fr;align-items:start;padding:4.5mm 0;border-bottom:1px dotted #999;font-size:13.5px}.label{font-weight:700}.value{line-height:1.7}
+.section{text-align:center;margin-top:12mm}.section-title{display:inline-block;border:1px solid #555;border-radius:3mm;padding:1.8mm 7mm 1.2mm;font-size:15px;font-weight:700}
+.teacher{text-align:center;margin-top:5mm;font-size:13.5px;line-height:1.8}.small-divider{width:75mm;margin:7mm auto 0;height:1px;background:#777;position:relative}.small-divider:after{content:"❖";position:absolute;left:50%;top:-10px;transform:translateX(-50%);background:#fff;padding:0 4mm;font-size:14px}
+.student{margin:6mm 13mm 0}.student .row{padding:3.5mm 0}.bottom{position:absolute;bottom:15mm;left:50%;transform:translateX(-50%);width:65mm;display:flex;align-items:center;gap:3mm}.bottom:before,.bottom:after{content:"";height:1px;background:#555;flex:1}
+@media print{body{background:#fff}.controls{display:none}.panel{margin:0;padding:0;max-width:none}.page{box-shadow:none}@page{size:A4;margin:0}}
+</style>
+</head>
+<body>
+<div class="panel">
+<div class="controls">
+<h2>অ্যাসাইনমেন্ট কভার পেজ</h2>
+<label>তোমার নাম</label><input id="name" placeholder="যেমন: মাহমুদুল হাসান নাহিদ">
+<label>রোল</label><input id="roll" placeholder="যেমন: ৬৫" inputmode="numeric">
+<button id="download">কভার পেজ PDF ডাউনলোড</button>
+<div class="hint">নাম ও রোল লিখে বোতামে চাপলেই নিজের কভার পেজ তৈরি হবে।</div>
+</div>
+
+<div class="page" id="cover">
+<div class="border"></div><div class="inner"></div>
+<div class="corner tl">❧</div><div class="corner tr">❧</div><div class="corner bl">❧</div><div class="corner br">❧</div>
+<div class="header">
+<div class="college">টঙ্গী সরকারি কলেজ, গাজীপুর</div><div class="dept">বাংলা বিভাগ</div>
+<div class="divider"><span class="star">◆</span></div><div class="badge">অ্যাসাইনমেন্ট নং– ০১</div>
+</div>
+<div class="info">
+<div class="row"><div class="label">শিরোনাম</div><div>:</div><div class="value">জসীম উদ্দীন ও সুকান্ত বাদলিয়ার ঘাট নির্মিত পাঠ</div></div>
+<div class="row"><div class="label">কোর্স নাম ও কোড</div><div>:</div><div class="value">কবিতা–১ [২১১০০৬]</div></div>
+</div>
+<div class="section"><div class="small-divider"></div><div class="section-title">নির্দেশনায়</div>
+<div class="teacher">অধ্যাপক আব্দুস হাকিম<br>সহকারী অধ্যাপক, বাংলা বিভাগ</div><div class="small-divider"></div></div>
+<div class="section" style="margin-top:10mm"><div class="section-title">উপস্থাপনায়</div></div>
+<div class="student">
+<div class="row"><div class="label">নাম</div><div>:</div><div class="value" id="previewName">তোমার নাম</div></div>
+<div class="row"><div class="label">শ্রেণী</div><div>:</div><div class="value">স্নাতক সম্মান (প্রথম বর্ষ)</div></div>
+<div class="row"><div class="label">রোল</div><div>:</div><div class="value" id="previewRoll">৬৫</div></div>
+</div>
+<div class="bottom"><span>✦</span></div>
+</div>
+</div>
+<script>
+const n=document.getElementById("name"),r=document.getElementById("roll"),pn=document.getElementById("previewName"),pr=document.getElementById("previewRoll"),b=document.getElementById("download");
+function update(){pn.textContent=n.value.trim()||"তোমার নাম";pr.textContent=r.value.trim()||"৬৫"} n.oninput=update;r.oninput=update;
+b.onclick=async()=>{if(!n.value.trim()||!r.value.trim()){alert("নাম ও রোল লিখুন।");return}b.disabled=true;b.textContent="PDF তৈরি হচ্ছে…";try{
+await document.fonts.ready;update();const c=await html2canvas(document.getElementById("cover"),{scale:2,useCORS:true,backgroundColor:"#fff",logging:false});
+const {jsPDF}=window.jspdf,p=new jsPDF("p","mm","a4");p.addImage(c.toDataURL("image/png"),"PNG",0,0,210,297,undefined,"FAST");
+p.save("অ্যাসাইনমেন্ট_কভার_"+n.value.trim().replace(/[\\/:*?"<>|]/g,"_")+".pdf");
+}catch(e){console.error(e);alert("PDF তৈরি করতে সমস্যা হয়েছে।")}finally{b.disabled=false;b.textContent="কভার পেজ PDF ডাউনলোড"}};
+</script>
+</body></html>
