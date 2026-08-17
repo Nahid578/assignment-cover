@@ -184,6 +184,130 @@ button{border:0;border-radius:9px;padding:11px 9px;font:600 12px system-ui,sans-
   .panel{position:relative;top:auto}
   .preview-wrap{padding:8px}
 }
+
+/* v2.5 Liquid Glass UI — screen only */
+:root{
+  --glass-bg:rgba(255,255,255,.68);
+  --glass-bg-strong:rgba(255,255,255,.82);
+  --glass-border:rgba(255,255,255,.72);
+  --glass-shadow:0 18px 55px rgba(30,30,30,.10);
+  --accent:#111;
+}
+body{
+  background:
+    radial-gradient(circle at 12% 8%,rgba(255,255,255,.95),transparent 30%),
+    radial-gradient(circle at 88% 15%,rgba(220,230,255,.42),transparent 28%),
+    linear-gradient(135deg,#f5f5f3 0%,#ecece9 48%,#f7f7f5 100%);
+  background-attachment:fixed;
+}
+.app{position:relative}
+.app:before,.app:after{
+  content:"";position:fixed;z-index:-1;border-radius:999px;filter:blur(42px);
+  pointer-events:none;opacity:.45;animation:floatGlow 12s ease-in-out infinite alternate
+}
+.app:before{width:180px;height:180px;left:-70px;top:18%;background:rgba(255,255,255,.9)}
+.app:after{width:220px;height:220px;right:-90px;top:48%;background:rgba(205,220,255,.35);animation-delay:-4s}
+@keyframes floatGlow{from{transform:translate3d(0,0,0)}to{transform:translate3d(18px,-14px,0)}}
+
+.header{animation:uiIn .55s cubic-bezier(.2,.7,.2,1) both}
+.panel{
+  background:linear-gradient(145deg,rgba(255,255,255,.82),rgba(255,255,255,.52));
+  border:1px solid var(--glass-border);
+  box-shadow:var(--glass-shadow),inset 0 1px 0 rgba(255,255,255,.9);
+  backdrop-filter:blur(22px) saturate(125%);
+  -webkit-backdrop-filter:blur(22px) saturate(125%);
+  animation:uiIn .65s .05s cubic-bezier(.2,.7,.2,1) both
+}
+.badge,.edit-more,.reset{
+  background:rgba(255,255,255,.48);
+  border-color:rgba(255,255,255,.82);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 5px 18px rgba(0,0,0,.05)
+}
+input,select{
+  background:rgba(255,255,255,.58);
+  border-color:rgba(0,0,0,.10);
+  transition:border-color .2s ease,box-shadow .2s ease,background .2s ease,transform .2s ease
+}
+input:focus,select:focus{
+  border-color:rgba(0,0,0,.28);
+  background:rgba(255,255,255,.82);
+  box-shadow:0 0 0 4px rgba(255,255,255,.42),0 8px 24px rgba(0,0,0,.06);
+  transform:translateY(-1px)
+}
+button{
+  transition:transform .18s ease,box-shadow .18s ease,filter .18s ease,background .18s ease
+}
+button:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(0,0,0,.08)}
+button:active{transform:translateY(1px) scale(.985)}
+.primary{
+  background:linear-gradient(180deg,#191919,#090909);
+  box-shadow:0 8px 20px rgba(0,0,0,.16)
+}
+.secondary{background:rgba(255,255,255,.58)}
+.edit-more{font-weight:650}
+.more-fields.open{animation:expandIn .28s ease both}
+.preview-wrap{
+  background:rgba(220,220,217,.42);
+  border:1px solid rgba(255,255,255,.72);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.8),0 14px 42px rgba(0,0,0,.06);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  animation:uiIn .7s .1s cubic-bezier(.2,.7,.2,1) both
+}
+.site-footer{opacity:.8}
+.ui-tools{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.ui-tools button{font-size:11px}
+.saved-state{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  margin-top:10px;font:11px system-ui,sans-serif;color:#707070
+}
+.saved-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#34a853;box-shadow:0 0 0 4px rgba(52,168,83,.10)}
+.theme-toggle{
+  position:relative;overflow:hidden
+}
+.theme-toggle:after{
+  content:"";position:absolute;inset:0;transform:translateX(-110%);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);
+  transition:transform .55s ease
+}
+.theme-toggle:hover:after{transform:translateX(110%)}
+body.dark{
+  --ink:#f5f5f5;--muted:#a9a9ad;--line:rgba(255,255,255,.14);
+  background:
+    radial-gradient(circle at 15% 10%,rgba(80,90,120,.25),transparent 30%),
+    radial-gradient(circle at 88% 20%,rgba(80,70,120,.18),transparent 30%),
+    linear-gradient(135deg,#101113,#17191d 52%,#0e0f11)
+}
+body.dark .panel{
+  background:linear-gradient(145deg,rgba(35,37,42,.82),rgba(25,27,31,.68));
+  border-color:rgba(255,255,255,.12);
+  box-shadow:0 18px 55px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.08)
+}
+body.dark .badge,body.dark .edit-more,body.dark .reset,body.dark .secondary{
+  background:rgba(255,255,255,.07);color:#f5f5f5;border-color:rgba(255,255,255,.12)
+}
+body.dark input,body.dark select{
+  background:rgba(255,255,255,.06);color:#f5f5f5;border-color:rgba(255,255,255,.12)
+}
+body.dark input:focus,body.dark select:focus{background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.28)}
+body.dark .group{border-color:rgba(255,255,255,.10)}
+body.dark .hint{color:#aaa}
+body.dark .sub{color:#aaa}
+body.dark .preview-wrap{background:rgba(55,57,61,.42);border-color:rgba(255,255,255,.10)}
+body.dark .ui-tools button{color:#f5f5f5}
+@keyframes uiIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes expandIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+@media(max-width:850px){
+  .ui-tools{grid-template-columns:1fr 1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+@media print{
+  body{background:#fff!important}
+  .app:before,.app:after{display:none!important}
+}
+
 </style>
 </head>
 
@@ -195,7 +319,10 @@ button{border:0;border-radius:9px;padding:11px 9px;font:600 12px system-ui,sans-
       <div class="brand">Assignment Cover Builder</div>
       <div class="sub">Modern • Editable • A4 PDF Generator</div>
     </div>
-    <div class="badge">LIVE PREVIEW · A4</div>
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end">
+      <button class="badge theme-toggle" id="themeBtn" type="button">☀ Light</button>
+      <div class="badge">LIVE PREVIEW · A4</div>
+    </div>
   </div>
 
   <div class="layout">
@@ -265,10 +392,21 @@ button{border:0;border-radius:9px;padding:11px 9px;font:600 12px system-ui,sans-
         </div>
       </div>
 
+      <div class="ui-tools">
+        <button class="secondary" type="button" id="presetBtn">✨ Recommended Preset</button>
+        <button class="secondary" type="button" id="shareBtn">🔗 Share Template</button>
+        <button class="secondary" type="button" id="clearBtn">🧹 Clear Fields</button>
+        <button class="secondary" type="button" id="clearSavedBtn">↺ Clear Saved Data</button>
+      </div>
+
       <div class="actions">
         <button class="primary" type="button" onclick="downloadPDF()">A4 PDF ডাউনলোড</button>
         <button class="secondary" type="button" onclick="window.print()">Print / Save PDF</button>
         <button class="reset" type="button" onclick="resetDesign()">↺ Reset to Recommended Design</button>
+      </div>
+      <div class="saved-state">
+        <span><span class="saved-dot"></span> <span id="saveStatus">Ready</span></span>
+        <span>Auto-save on this device</span>
       </div>
 
       <div class="hint">তথ্য পরিবর্তন করলেই ডান পাশে live preview আপডেট হবে।</div>
@@ -371,30 +509,25 @@ const pairs={
   session:'oSession'
 };
 
+const fieldIds=[
+  'student','roll','date','assignment','title','course','teacher',
+  'designation','className','session','borderStyle','borderWidth'
+];
+const STORAGE_KEY='assignmentCoverBuilder_v25';
+let saveTimer;
+
 function formatDate(v){
   if(!v)return "";
   const [y,m,d]=v.split("-");
   return d+"-"+m+"-"+y;
 }
 
-Object.entries(pairs).forEach(([a,b])=>{
-  document.getElementById(a).addEventListener("input",()=>{
+function updatePreview(){
+  Object.entries(pairs).forEach(([a,b])=>{
     document.getElementById(b).textContent=document.getElementById(a).value;
   });
-});
-
-document.getElementById("date").addEventListener("input",e=>{
-  document.getElementById("oDate").textContent=formatDate(e.target.value);
-});
-
-document.getElementById("borderStyle").addEventListener("change",applyBorder);
-document.getElementById("borderWidth").addEventListener("change",applyBorder);
-
-document.getElementById("editMoreBtn").addEventListener("click",()=>{
-  const box=document.getElementById("moreFields");
-  const open=box.classList.toggle("open");
-  document.getElementById("editMoreBtn").textContent=open ? "− Hide More" : "＋ Edit More";
-});
+  document.getElementById("oDate").textContent=formatDate(document.getElementById("date").value);
+}
 
 function applyBorder(){
   const f=document.getElementById("frame");
@@ -402,18 +535,128 @@ function applyBorder(){
   f.style.setProperty("--border-width",document.getElementById("borderWidth").value);
 }
 
-function resetDesign(){
+function saveData(){
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(()=>{
+    const data={};
+    fieldIds.forEach(id=>data[id]=document.getElementById(id).value);
+    data.theme=document.body.classList.contains('dark')?'dark':'light';
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(data));
+    const s=document.getElementById('saveStatus');
+    if(s)s.textContent='Saved ✓';
+  },180);
+}
+
+function loadData(){
+  try{
+    const raw=localStorage.getItem(STORAGE_KEY);
+    if(!raw)return;
+    const data=JSON.parse(raw);
+    fieldIds.forEach(id=>{
+      if(data[id]!==undefined)document.getElementById(id).value=data[id];
+    });
+    if(data.theme==='dark')document.body.classList.add('dark');
+  }catch(e){}
+}
+
+function setTheme(dark){
+  document.body.classList.toggle('dark',dark);
+  document.getElementById('themeBtn').textContent=dark?'☾ Dark':'☀ Light';
+  saveData();
+}
+
+function clearFields(){
+  ['student','roll','date'].forEach(id=>document.getElementById(id).value='');
+  updatePreview(); saveData();
+}
+
+function resetRecommended(){
   document.getElementById("borderStyle").value="solid";
   document.getElementById("borderWidth").value="1px";
   applyBorder();
+  saveData();
 }
 
-function updateAll(){
-  Object.entries(pairs).forEach(([a,b])=>{
+function resetDesign(){
+  resetRecommended();
+}
+
+function applyRecommendedPreset(){
+  document.getElementById("assignment").value="০১";
+  document.getElementById("title").value="জসীম উদ্দীন ও সুজন বাদিয়ার ঘাট (নিবির পাঠ)";
+  document.getElementById("course").value="কবিতা–১ [২১১০০৬]";
+  document.getElementById("teacher").value="অধ্যাপক আব্দুল হাকিম";
+  document.getElementById("designation").value="সহকারী অধ্যাপক, বাংলা বিভাগ";
+  document.getElementById("className").value="স্নাতক সম্মান (প্রথম বর্ষ)";
+  document.getElementById("session").value="২০২৫–২৬";
+  resetRecommended();
+  updatePreview();
+}
+
+function shareTemplate(){
+  const data={};
+  fieldIds.forEach(id=>data[id]=document.getElementById(id).value);
+  const encoded=btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+  const url=location.href.split('#')[0]+'#template='+encoded;
+  if(navigator.share){
+    navigator.share({title:'Assignment Cover Template',text:'Assignment Cover Builder template',url}).catch(()=>{});
+  }else if(navigator.clipboard){
+    navigator.clipboard.writeText(url).then(()=>{
+      document.getElementById('saveStatus').textContent='Template link copied ✓';
+    });
+  }else{
+    prompt('Copy this template link:',url);
+  }
+}
+
+function loadSharedTemplate(){
+  if(!location.hash.startsWith('#template='))return;
+  try{
+    const encoded=location.hash.substring(10);
+    const data=JSON.parse(decodeURIComponent(escape(atob(encoded))));
+    fieldIds.forEach(id=>{
+      if(data[id]!==undefined)document.getElementById(id).value=data[id];
+    });
+  }catch(e){}
+}
+
+Object.entries(pairs).forEach(([a,b])=>{
+  document.getElementById(a).addEventListener("input",()=>{
     document.getElementById(b).textContent=document.getElementById(a).value;
+    saveData();
   });
-  document.getElementById("oDate").textContent=formatDate(document.getElementById("date").value);
+});
+document.getElementById("date").addEventListener("input",e=>{
+  document.getElementById("oDate").textContent=formatDate(e.target.value);
+  saveData();
+});
+document.getElementById("borderStyle").addEventListener("change",()=>{applyBorder();saveData()});
+document.getElementById("borderWidth").addEventListener("change",()=>{applyBorder();saveData()});
+
+document.getElementById("editMoreBtn").addEventListener("click",()=>{
+  const box=document.getElementById("moreFields");
+  const open=box.classList.toggle("open");
+  document.getElementById("editMoreBtn").textContent=open ? "− Hide More" : "＋ Edit More";
+});
+
+document.getElementById('themeBtn').addEventListener('click',()=>{
+  setTheme(!document.body.classList.contains('dark'));
+});
+document.getElementById('clearBtn').addEventListener('click',clearFields);
+document.getElementById('clearSavedBtn').addEventListener('click',()=>{
+  localStorage.removeItem(STORAGE_KEY);
+  clearFields();
+  document.getElementById('saveStatus').textContent='Saved data cleared';
+});
+document.getElementById('presetBtn').addEventListener('click',applyRecommendedPreset);
+document.getElementById('shareBtn').addEventListener('click',shareTemplate);
+
+function updateAll(){
+  loadData();
+  loadSharedTemplate();
+  updatePreview();
   applyBorder();
+  document.getElementById('themeBtn').textContent=document.body.classList.contains('dark')?'☾ Dark':'☀ Light';
 }
 
 updateAll();
@@ -423,27 +666,23 @@ function safeFilename(s){
 }
 
 function downloadPDF(){
-  updateAll();
+  updatePreview();
 
-  const name = safeFilename(document.getElementById("student").value);
-  const roll = safeFilename(document.getElementById("roll").value);
-  const filename = name + "_রোল_" + roll;
+  const name=safeFilename(document.getElementById("student").value);
+  const roll=safeFilename(document.getElementById("roll").value);
+  const filename=name+"_রোল_"+roll;
 
-  // Browser Print → Save as PDF keeps Bengali text as real text/vector
-  // instead of converting the whole A4 page into a blurry raster image.
-  const oldTitle = document.title;
-  document.title = filename;
-
+  const oldTitle=document.title;
+  document.title=filename;
   document.body.classList.add("pdf-mode");
 
-  // Give the browser a moment to apply print CSS before opening print preview.
-  setTimeout(() => {
+  setTimeout(()=>{
     window.print();
-    setTimeout(() => {
+    setTimeout(()=>{
       document.body.classList.remove("pdf-mode");
-      document.title = oldTitle;
-    }, 1000);
-  }, 100);
+      document.title=oldTitle;
+    },1000);
+  },100);
 }
 </script>
 </body>
