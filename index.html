@@ -308,11 +308,32 @@ body.dark .ui-tools button{color:#f5f5f5}
   .app:before,.app:after{display:none!important}
 }
 
+
+/* v2.6 UI polish — screen only */
+.floating-header{position:fixed;left:50%;top:12px;transform:translateX(-50%);z-index:50;display:flex;align-items:center;gap:7px;padding:7px;border:1px solid rgba(255,255,255,.72);border-radius:18px;background:rgba(255,255,255,.56);backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);box-shadow:0 12px 35px rgba(0,0,0,.09);animation:uiIn .5s ease both}
+.floating-header .mini{padding:7px 10px;border-radius:11px;font-size:11px}
+.app{padding-top:74px}
+.progress-wrap{margin-top:13px}.progress-top{display:flex;justify-content:space-between;font:11px system-ui,sans-serif;color:#777;margin-bottom:6px}.progress-track{height:6px;border-radius:999px;background:rgba(0,0,0,.07);overflow:hidden}.progress-bar{height:100%;width:0;border-radius:999px;background:#111;transition:width .4s ease}
+.input-wrap{position:relative}.checkmark{position:absolute;right:10px;top:50%;transform:translateY(-50%) scale(.8);opacity:0;color:#3a9b69;font:700 12px system-ui,sans-serif;transition:.2s}.input-wrap.filled .checkmark{opacity:1;transform:translateY(-50%) scale(1)}
+.preview-toolbar{position:absolute;top:12px;right:12px;z-index:5;display:flex;gap:5px;padding:5px;border-radius:13px;background:rgba(255,255,255,.58);border:1px solid rgba(255,255,255,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.preview-toolbar button{padding:6px 9px;border-radius:9px;background:rgba(255,255,255,.62);font-size:11px}.zoom-value{min-width:44px}.preview-wrap{position:relative}.preview-scale{transform-origin:top center;transition:transform .25s ease}
+.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,18px);opacity:0;z-index:100;padding:10px 14px;border-radius:13px;background:rgba(18,18,18,.88);color:#fff;font:600 12px system-ui,sans-serif;backdrop-filter:blur(12px);transition:.25s;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}
+body.dark .floating-header{background:rgba(30,32,36,.68);border-color:rgba(255,255,255,.12)}body.dark .preview-toolbar{background:rgba(30,32,36,.68);border-color:rgba(255,255,255,.12)}body.dark .preview-toolbar button{background:rgba(255,255,255,.08);color:#fff}.progress-bar{background:#111}
+@media(max-width:850px){.floating-header{top:8px;max-width:calc(100% - 16px)}.app{padding-top:68px}.preview-toolbar{position:sticky;top:8px;width:max-content;margin-left:auto}}
+@media(prefers-reduced-motion:reduce){.floating-header,.more-fields.open{animation:none!important}*,*:before,*:after{transition-duration:.01ms!important}}
+@media print{
+  .floating-header,.preview-toolbar,.toast{display:none!important}.app{padding-top:0!important}
+  body,html{background:#fff!important;color:#171717!important}
+  .page,.page *,.frame,.frame *{color:#171717!important}
+  .page{background:#fff!important}.frame{background:transparent!important}
+  .frame .ornament span{background:#222!important}.frame .pill,.frame .section-title{border-color:#777!important}
+}
+
 </style>
 </head>
 
 <body>
-<div class="app">
+<div class="floating-header"><span class="mini">Assignment Cover</span><button class="mini secondary" id="topSave" type="button">⌘ Save</button><button class="mini secondary" id="topPdf" type="button">↓ PDF</button></div><div class="toast" id="toast"></div><div class="app">
 
   <div class="header">
     <div>
@@ -332,13 +353,13 @@ body.dark .ui-tools button{color:#f5f5f5}
 
       <!-- প্রথমে শুধু এই ৩টি ফিল্ড দেখা যাবে -->
       <label>নাম</label>
-      <input id="student" value="" placeholder="যেমন: মাহমুদুল হাসান নাহিদ">
+      <div class="input-wrap" data-for="student"><input id="student" value="" placeholder="যেমন: মাহমুদুল হাসান নাহিদ"><span class="checkmark">✓</span></div>
 
       <label>রোল</label>
-      <input id="roll" value="" placeholder="যেমন: ৬৮">
+      <div class="input-wrap" data-for="roll"><input id="roll" value="" placeholder="যেমন: ৬৮"><span class="checkmark">✓</span></div>
 
       <label>জমাদানের তারিখ</label>
-      <input id="date" type="date" value="">
+      <div class="input-wrap" data-for="date"><input id="date" type="date" value=""><span class="checkmark">✓</span></div>
 
       <button class="edit-more" id="editMoreBtn" type="button">＋ Edit More</button>
 
@@ -409,11 +430,11 @@ body.dark .ui-tools button{color:#f5f5f5}
         <span>Auto-save on this device</span>
       </div>
 
-      <div class="hint">তথ্য পরিবর্তন করলেই ডান পাশে live preview আপডেট হবে।</div>
+      <div class="hint">তথ্য পরিবর্তন করলেই ডান পাশে live preview আপডেট হবে।</div><div class="progress-wrap"><div class="progress-top"><span>Cover setup</span><span id="progressText">0% complete</span></div><div class="progress-track"><div class="progress-bar" id="progressBar"></div></div></div>
       <div class="hint">PDF তৈরি হলে Print/Save as PDF থেকে সংরক্ষণ করুন—এতে বাংলা লেখা sharp ও zoom-friendly থাকবে।</div>
     </section>
 
-    <main class="preview-wrap">
+    <main class="preview-wrap"><div class="preview-toolbar"><button type="button" id="zoomOut">−</button><button type="button" class="zoom-value" id="zoomValue">100%</button><button type="button" id="zoomIn">＋</button><button type="button" id="previewFull">⛶</button></div><div class="preview-scale" id="previewScale">
       <div class="page" id="page">
         <div class="frame" id="frame">
 
@@ -489,7 +510,7 @@ body.dark .ui-tools button{color:#f5f5f5}
           </div>
 
         </div>
-      </div>
+      </div></div>
     </main>
   </div>
 
@@ -636,7 +657,7 @@ document.getElementById("borderWidth").addEventListener("change",()=>{applyBorde
 document.getElementById("editMoreBtn").addEventListener("click",()=>{
   const box=document.getElementById("moreFields");
   const open=box.classList.toggle("open");
-  document.getElementById("editMoreBtn").textContent=open ? "− Hide More" : "＋ Edit More";
+  document.getElementById("editMoreBtn").textContent=open ? "− Hide More" : "＋ Edit More"; updateProgress();
 });
 
 document.getElementById('themeBtn').addEventListener('click',()=>{
@@ -651,11 +672,25 @@ document.getElementById('clearSavedBtn').addEventListener('click',()=>{
 document.getElementById('presetBtn').addEventListener('click',applyRecommendedPreset);
 document.getElementById('shareBtn').addEventListener('click',shareTemplate);
 
+
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(window.__tt);window.__tt=setTimeout(()=>t.classList.remove('show'),1700)}
+function updateProgress(){const ids=['student','roll','date'];let done=ids.filter(id=>document.getElementById(id).value.trim()).length,total=ids.length;const moreOpen=document.getElementById('moreFields').classList.contains('open');if(moreOpen){const more=['assignment','title','course','teacher','designation','className','session'];done+=more.filter(id=>document.getElementById(id).value.trim()).length;total+=more.length}const pct=Math.round(done/total*100);document.getElementById('progressBar').style.width=pct+'%';document.getElementById('progressText').textContent=pct+'% complete';document.querySelectorAll('.input-wrap').forEach(w=>w.classList.toggle('filled',!!w.querySelector('input').value.trim()))}
+function setZoom(z){z=Math.max(.7,Math.min(1.3,z));document.getElementById('previewScale').style.transform='scale('+z+')';document.getElementById('zoomValue').textContent=Math.round(z*100)+'%'}
+function togglePreviewFull(){const el=document.querySelector('.preview-wrap');if(!document.fullscreenElement)el.requestFullscreen?.();else document.exitFullscreen?.()}
+
+document.querySelectorAll('.input-wrap input').forEach(el=>el.addEventListener('input',updateProgress));
+document.getElementById('zoomOut').addEventListener('click',()=>setZoom((parseInt(document.getElementById('zoomValue').textContent)||100)/100-.1));
+document.getElementById('zoomIn').addEventListener('click',()=>setZoom((parseInt(document.getElementById('zoomValue').textContent)||100)/100+.1));
+document.getElementById('previewFull').addEventListener('click',togglePreviewFull);
+document.getElementById('topSave').addEventListener('click',()=>{saveData();showToast('Template saved ✓')});
+document.getElementById('topPdf').addEventListener('click',downloadPDF);
+document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='s'){e.preventDefault();saveData();showToast('Template saved ✓')}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='p'){e.preventDefault();downloadPDF()}if(e.key==='Escape'&&document.fullscreenElement)document.exitFullscreen?.()});
 function updateAll(){
   loadData();
   loadSharedTemplate();
   updatePreview();
   applyBorder();
+  updateProgress();
   document.getElementById('themeBtn').textContent=document.body.classList.contains('dark')?'☾ Dark':'☀ Light';
 }
 
