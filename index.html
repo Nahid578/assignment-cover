@@ -151,7 +151,7 @@ body.dark .card-due.due-normal{background:rgba(21,128,61,0.22);color:#86efac;bor
 
 /* Cover Builder */
 .builder-nav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}
-.layout{display:grid;grid-template-columns:370px 1fr;gap:20px;align-items:start}
+.layout{display:grid;grid-template-columns:380px 1fr;gap:20px;align-items:start}
 .panel{
   background:var(--glass-bg-strong);border:1px solid var(--glass-border);
   border-radius:20px;padding:20px;box-shadow:var(--glass-shadow);
@@ -184,15 +184,28 @@ input:focus,select:focus{
 .ui-tools{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
 .ui-tools button{font-size:11px;padding:8px}
 
-.fs-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:7px 0}
-.fs-label{flex:1;font-size:11.5px;font-weight:600;color:var(--ink)}
+/* Grouped Font Size Box */
+.fs-group-box{
+  background:rgba(0,0,0,0.025);border:1px solid rgba(0,0,0,0.06);
+  border-radius:12px;padding:10px 12px;margin-bottom:10px;
+}
+body.dark .fs-group-box{
+  background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.07);
+}
+.fs-group-title{
+  font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;
+  letter-spacing:0.5px;margin-bottom:8px;display:flex;align-items:center;gap:5px;
+}
+
+.fs-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:5px 0}
+.fs-label{flex:1;font-size:12px;font-weight:600;color:var(--ink)}
 .fs-controls{display:flex;align-items:center;gap:5px}
 .fs-btn{
-  width:25px;height:25px;padding:0;border-radius:8px;font:700 13px system-ui,sans-serif;
+  width:26px;height:26px;padding:0;border-radius:8px;font:700 13px system-ui,sans-serif;
   background:rgba(0,0,0,0.06);color:var(--ink);flex:none;
 }
 .fs-btn:hover{background:rgba(0,0,0,0.12)}
-.fs-val{min-width:32px;text-align:center;font:700 11.5px system-ui,sans-serif;color:var(--accent)}
+.fs-val{min-width:34px;text-align:center;font:700 11.5px system-ui,sans-serif;color:var(--accent)}
 body.dark .fs-btn{background:rgba(255,255,255,0.1)}
 body.dark .fs-btn:hover{background:rgba(255,255,255,0.18)}
 .fs-reset{width:100%;margin-top:6px;background:rgba(255,255,255,0.5);border:1px solid rgba(0,0,0,0.1);font-size:11px;padding:8px}
@@ -213,47 +226,52 @@ body.dark .fs-reset{background:rgba(255,255,255,0.08);border-color:rgba(255,255,
 
 /* Pure Black Borders for Clean Print & Preview */
 .frame{
-  position:absolute;inset:5mm;padding:15mm 13mm 10mm;
+  position:absolute;inset:5mm;padding:14mm 13mm 10mm;
   display:flex;flex-direction:column;
   border:var(--border-width) var(--border-style) #111;
   overflow:hidden;background:#fff;
 }
 
 .center{text-align:center}
-.college{font-size:20px;font-weight:700}
-.dept{font-size:14px;font-weight:600;margin-top:4px}
+/* Base font sizes bumped by +2px */
+.college{font-size:22px;font-weight:700;line-height:1.35}
+.dept{font-size:16px;font-weight:600;margin-top:4px;line-height:1.4}
 .ornament{
   display:flex;align-items:center;justify-content:center;gap:7mm;
-  margin:8mm 0 6mm;height:4mm;
+  margin:7mm 0 5mm;height:4mm;
 }
 .ornament span{height:1px;background:#111;flex:0 1 34mm}
 .ornament i{font:normal 12px/1 serif;color:#111}
 
 .pill{
   display:inline-block;border:1px solid #111;border-radius:999px;
-  padding:4px 15px;font-size:12px;font-weight:600;background:#fff;color:#111;
+  padding:4px 16px;font-size:14px;font-weight:600;background:#fff;color:#111;
+  line-height:1.3;
 }
-.info{margin-top:11mm}
-.row{
-  display:grid;grid-template-columns:47mm 7mm 1fr;
-  border-bottom:1px dotted #888;padding:4.2mm 0;
-  font-size:11px;align-items:start;
-}
-.key{font-weight:700}.value{line-height:1.65;overflow-wrap:anywhere}
 
-.section{text-align:center;margin-top:6mm}
+/* Flexible Rows with Robust Grid Alignment to Prevent Overlap */
+.info{margin-top:8mm}
+.row{
+  display:grid;grid-template-columns:52mm 6mm 1fr;
+  border-bottom:1px dotted #888;padding:4mm 0;
+  font-size:13px;align-items:baseline;
+}
+.key{font-weight:700;white-space:nowrap}.colon{text-align:center}.value{line-height:1.55;overflow-wrap:anywhere}
+
+.section{text-align:center;margin-top:5mm}
 .section-title{
   display:inline-block;border:1px solid #111;border-radius:999px;
-  padding:4px 17px;font-size:12px;font-weight:700;background:#fff;color:#111;
+  padding:4px 18px;font-size:14px;font-weight:700;background:#fff;color:#111;
+  line-height:1.3;
 }
-.person{text-align:center;margin-top:4.5mm;font-size:12px;line-height:1.8}
+.person{text-align:center;margin-top:3.5mm;font-size:14px;line-height:1.65}
 .bottom{margin-top:auto;text-align:center}
 .bottom .ornament{margin:0}
 
 /* Split structures (Hidden by default in standard templates) */
-.split-body{display:none;grid-template-columns:1fr 1px 1.15fr;gap:6mm;margin-top:10mm;align-items:stretch}
+.split-body{display:none;grid-template-columns:1fr 1px 1.18fr;gap:6mm;margin-top:8mm;align-items:stretch}
 .split-divider{background:#111;width:1.5px;margin:auto 0}
-.split-col{display:flex;flex-direction:column;gap:5mm}
+.split-col{display:flex;flex-direction:column;gap:4mm}
 .split-footer-date{display:none}
 
 /* TEMPLATES - STRICTLY BLACK & WHITE */
@@ -318,7 +336,7 @@ body.dark .fs-reset{background:rgba(255,255,255,0.08);border-color:rgba(255,255,
   color:#111;
   opacity:.75;
 }
-.page.template-handwritten .ornament{gap:0;height:auto;margin:6mm 0 5mm}
+.page.template-handwritten .ornament{gap:0;height:auto;margin:5mm 0 4mm}
 .page.template-handwritten .ornament span{flex:1 1 auto;height:1.4px;background:#111}
 .page.template-handwritten .ornament i{display:none}
 .page.template-handwritten .pill{
@@ -355,28 +373,28 @@ body.dark .fs-reset{background:rgba(255,255,255,0.08);border-color:rgba(255,255,
 
 .page.template-boxed .frame{border-width:1px}
 .page.template-boxed .center{
-  border:1px solid #111;border-radius:2mm;padding:6mm 5mm 5mm;
+  border:1px solid #111;border-radius:2mm;padding:5mm 5mm 4mm;
 }
 .page.template-boxed .info{
-  border:1px solid #111;border-radius:2mm;padding:4mm 5mm;margin-top:7mm;
+  border:1px solid #111;border-radius:2mm;padding:4mm 5mm;margin-top:6mm;
 }
 .page.template-boxed .row{border-bottom:1px dotted #ccc}
 .page.template-boxed .row:last-child{border-bottom:0}
 .page.template-boxed .section{
-  border:1px solid #111;border-radius:2mm;padding:5mm 4mm 4mm;margin-top:6mm;
+  border:1px solid #111;border-radius:2mm;padding:4.5mm 4mm 3.5mm;margin-top:5mm;
 }
 .page.template-boxed .section .ornament{display:none}
 .page.template-boxed .section-title{
-  position:relative;top:-9.5mm;background:#fff;padding:2px 10px;
+  position:relative;top:-8.5mm;background:#fff;padding:2px 10px;
 }
 .page.template-boxed .person{margin-top:1mm}
 .page.template-boxed .bottom .ornament{display:flex}
 
-/* ══════════════ NEW THEME 1: IMAGE INSPIRED SPLIT THEME (স্প্লিট ড্রাফট) ══════════════ */
+/* IMAGE INSPIRED SPLIT THEME */
 .page.template-split-draft .frame{
   border:3px double #111!important;
   border-radius:0;
-  padding:14mm 12mm 12mm;
+  padding:12mm 12mm 10mm;
 }
 .page.template-split-draft .center .college{
   border-bottom:1.5px solid #111;
@@ -397,7 +415,7 @@ body.dark .fs-reset{background:rgba(255,255,255,0.08);border-color:rgba(255,255,
 }
 .page.template-split-draft .split-body{
   display:grid;
-  margin-top:10mm;
+  margin-top:8mm;
 }
 .page.template-split-draft .split-divider{
   background:transparent;
@@ -407,22 +425,21 @@ body.dark .fs-reset{background:rgba(255,255,255,0.08);border-color:rgba(255,255,
 }
 .page.template-split-draft .split-col .section-title{
   border:none;border-radius:0;padding:0;text-decoration:underline;text-underline-offset:4px;
-  text-align:left;display:inline-block;font-size:13px;
+  text-align:left;display:inline-block;
 }
 .page.template-split-draft .split-footer-date{
   display:block;
   margin-top:auto;
-  padding-top:10mm;
-  font-size:12px;
+  padding-top:8mm;
   font-weight:700;
   text-align:left;
 }
 
-/* ══════════════ NEW THEME 2: SMART MINIMAL GEOMETRIC SPLIT (স্মার্ট জিওমেট্রিক) ══════════════ */
+/* SMART MINIMAL GEOMETRIC SPLIT */
 .page.template-split-smart .frame{
   border:1.5px solid #111!important;
   border-radius:0;
-  padding:12mm 12mm 10mm;
+  padding:11mm 11mm 10mm;
 }
 .page.template-split-smart .frame::before{
   content:"";
@@ -433,7 +450,7 @@ body.dark .fs-reset{background:rgba(255,255,255,0.08);border-color:rgba(255,255,
 }
 .page.template-split-smart .center{
   border:1px solid #111;
-  padding:5mm;
+  padding:4mm;
   background:#fafafa;
 }
 .page.template-split-smart .info-default,
@@ -442,11 +459,11 @@ body.dark .fs-reset{background:rgba(255,255,255,0.08);border-color:rgba(255,255,
 }
 .page.template-split-smart .split-body{
   display:grid;
-  margin-top:7mm;
+  margin-top:6mm;
 }
 .page.template-split-smart .split-col{
   border:1px solid #111;
-  padding:5mm 4mm;
+  padding:4.5mm 4mm;
   background:#fff;
   position:relative;
 }
@@ -455,7 +472,6 @@ body.dark .fs-reset{background:rgba(255,255,255,0.08);border-color:rgba(255,255,
   border:1px solid #111;
   border-radius:0;
   padding:2px 8px;
-  font-size:11.5px;
 }
 .page.template-split-smart .split-divider{
   background:#111;
@@ -466,7 +482,6 @@ body.dark .fs-reset{background:rgba(255,255,255,0.08);border-color:rgba(255,255,
   margin-top:auto;
   padding:3.5mm 5mm;
   border:1px solid #111;
-  font-size:11.5px;
   font-weight:700;
   text-align:center;
   background:#fafafa;
@@ -707,9 +722,9 @@ body.dark .preview-wrap{background:rgba(30,32,44,0.5)}
           </div>
 
           <div class="group">
-            <div class="group-title">ফন্ট সাইজ কাস্টমাইজেশন</div>
-            <div class="hint">প্রতিটি লাইনের ফন্ট সাইজ আলাদাভাবে ছোট-বড় করুন।</div>
-            <div id="fontSizeControls"></div>
+            <div class="group-title">ফন্ট সাইজ কাস্টমাইজেশন (গ্রুপভিত্তিক)</div>
+            <div class="hint">ফন্ট সাইজ পরিবর্তন করলেও এলাইনমেন্ট ও মার্জিন ঠিক থাকবে।</div>
+            <div id="fontSizeControls" style="margin-top:10px"></div>
             <button class="fs-reset" type="button" id="fontResetBtn">↺ সব ফন্ট সাইজ রিসেট</button>
           </div>
         </div>
@@ -733,6 +748,7 @@ body.dark .preview-wrap{background:rgba(30,32,44,0.5)}
         <div class="page" id="page">
           <div class="frame" id="frame">
 
+            <!-- Top College Header -->
             <div class="center">
               <div class="college" data-fs="college">টঙ্গী সরকারি কলেজ, গাজীপুর</div>
               <div class="dept" data-fs="dept">বাংলা বিভাগ</div>
@@ -749,11 +765,11 @@ body.dark .preview-wrap{background:rgba(30,32,44,0.5)}
             <!-- Title & Course (Common Top) -->
             <div class="info" style="margin-top:6mm">
               <div class="row" data-fs="titleRow">
-                <div class="key">শিরোনাম</div><div>:</div>
+                <div class="key">শিরোনাম</div><div class="colon">:</div>
                 <div class="value" id="oTitle"></div>
               </div>
               <div class="row" data-fs="courseRow">
-                <div class="key">কোর্স নাম ও কোড</div><div>:</div>
+                <div class="key">কোর্স নাম ও কোড</div><div class="colon">:</div>
                 <div class="value" id="oCourse"></div>
               </div>
             </div>
@@ -778,25 +794,25 @@ body.dark .preview-wrap{background:rgba(30,32,44,0.5)}
                 <div class="section-title" data-fs="sectionTitle2">উপস্থাপনায়</div>
               </div>
 
-              <div class="info info-default" style="margin-top:5mm">
+              <div class="info info-default" style="margin-top:4mm">
                 <div class="row" data-fs="nameRow">
-                  <div class="key">নাম</div><div>:</div>
+                  <div class="key">নাম</div><div class="colon">:</div>
                   <div class="value" id="oStudent"></div>
                 </div>
                 <div class="row" data-fs="classRow">
-                  <div class="key">শ্রেণি</div><div>:</div>
+                  <div class="key">শ্রেণি</div><div class="colon">:</div>
                   <div class="value" id="oClass"></div>
                 </div>
                 <div class="row" data-fs="rollRow">
-                  <div class="key">রোল</div><div>:</div>
+                  <div class="key">রোল</div><div class="colon">:</div>
                   <div class="value" id="oRoll"></div>
                 </div>
                 <div class="row" data-fs="sessionRow">
-                  <div class="key">শিক্ষাবর্ষ</div><div>:</div>
+                  <div class="key">শিক্ষাবর্ষ</div><div class="colon">:</div>
                   <div class="value" id="oSession"></div>
                 </div>
                 <div class="row" data-fs="dateRow">
-                  <div class="key">জমাদানের তারিখ</div><div>:</div>
+                  <div class="key">জমাদানের তারিখ</div><div class="colon">:</div>
                   <div class="value" id="oDate"></div>
                 </div>
               </div>
@@ -1081,23 +1097,47 @@ let currentAssignmentId = null;
 let itemToDeleteId = null;
 let currentFontSizes = {};
 
-const FONT_TARGETS = [
-  { key: "college",       label: "কলেজের নাম",                 default: 20 },
-  { key: "dept",          label: "বিভাগের নাম",                 default: 14 },
-  { key: "pill",          label: "অ্যাসাইনমেন্ট নং ব্যাজ",       default: 12 },
-  { key: "titleRow",      label: "শিরোনাম লাইন",                default: 11 },
-  { key: "courseRow",     label: "কোর্স নাম ও কোড লাইন",         default: 11 },
-  { key: "sectionTitle1", label: "‘নির্দেশনায়’ টাইটেল",         default: 12 },
-  { key: "teacherBlock",  label: "শিক্ষকের নাম ও পদবি",          default: 12 },
-  { key: "sectionTitle2", label: "‘উপস্থাপনায়’ টাইটেল",         default: 12 },
-  { key: "nameRow",       label: "শিক্ষার্থীর নাম লাইন",         default: 11 },
-  { key: "classRow",      label: "শ্রেণি লাইন",                 default: 11 },
-  { key: "rollRow",       label: "রোল লাইন",                    default: 11 },
-  { key: "sessionRow",    label: "শিক্ষাবর্ষ লাইন",              default: 11 },
-  { key: "dateRow",       label: "জমাদানের তারিখ লাইন",          default: 11 }
+/* 
+  Grouped Font Configuration (+2px added to each default):
+  1. হেডার গ্রুপ (College, Dept, Pill Badge)
+  2. অ্যাসাইনমেন্ট ও সেকশন গ্রুপ (Title, Course, Section Titles)
+  3. বিস্তারিত বিবরণ সারি (Teacher, Student, Class, Roll, Session, Date)
+*/
+const FONT_GROUPS = [
+  {
+    title: "🏛️ ১. শিরোনাম ও হেডার অংশ",
+    items: [
+      { key: "college",       label: "কলেজের নাম",                 default: 22 },
+      { key: "dept",          label: "বিভাগের নাম",                 default: 16 },
+      { key: "pill",          label: "অ্যাসাইনমেন্ট নং ব্যাজ",       default: 14 }
+    ]
+  },
+  {
+    title: "📑 ২. অ্যাসাইনমেন্ট ও সেকশন টাইটেল",
+    items: [
+      { key: "titleRow",      label: "শিরোনাম লাইন",                default: 13 },
+      { key: "courseRow",     label: "কোর্স নাম ও কোড লাইন",         default: 13 },
+      { key: "sectionTitle1", label: "‘নির্দেশনায়’ টাইটেল",         default: 14 },
+      { key: "sectionTitle2", label: "‘উপস্থাপনায়’ টাইটেল",         default: 14 }
+    ]
+  },
+  {
+    title: "👤 ৩. শিক্ষক ও শিক্ষার্থীর তথ্য সারি",
+    items: [
+      { key: "teacherBlock",  label: "শিক্ষকের নাম ও পদবি",          default: 14 },
+      { key: "nameRow",       label: "শিক্ষার্থীর নাম লাইন",         default: 13 },
+      { key: "classRow",      label: "শ্রেণি লাইন",                 default: 13 },
+      { key: "rollRow",       label: "রোল লাইন",                    default: 13 },
+      { key: "sessionRow",    label: "শিক্ষাবর্ষ লাইন",              default: 13 },
+      { key: "dateRow",       label: "জমাদানের তারিখ লাইন",          default: 13 }
+    ]
+  }
 ];
-const FONT_MIN = 7;
-const FONT_MAX = 32;
+
+// Flattened list for direct lookup
+const FONT_TARGETS = FONT_GROUPS.flatMap(g => g.items);
+const FONT_MIN = 8;
+const FONT_MAX = 34;
 
 function formatDate(v){
   if(!v) return "";
@@ -1546,17 +1586,24 @@ function changeFontSize(key, delta){
   syncBackToActiveAssignment();
 }
 
+/* Render clean grouped font controls */
 function populateFontControls(){
   const container = document.getElementById('fontSizeControls');
   if(!container) return;
-  container.innerHTML = FONT_TARGETS.map(t => `
-    <div class="fs-row">
-      <div class="fs-label">${t.label}</div>
-      <div class="fs-controls">
-        <button type="button" class="fs-btn" onclick="changeFontSize('${t.key}',-1)">−</button>
-        <span class="fs-val" id="fsVal_${t.key}">${t.default}px</span>
-        <button type="button" class="fs-btn" onclick="changeFontSize('${t.key}',1)">＋</button>
-      </div>
+
+  container.innerHTML = FONT_GROUPS.map(group => `
+    <div class="fs-group-box">
+      <div class="fs-group-title">${group.title}</div>
+      ${group.items.map(t => `
+        <div class="fs-row">
+          <div class="fs-label">${t.label}</div>
+          <div class="fs-controls">
+            <button type="button" class="fs-btn" onclick="changeFontSize('${t.key}',-1)">−</button>
+            <span class="fs-val" id="fsVal_${t.key}">${t.default}px</span>
+            <button type="button" class="fs-btn" onclick="changeFontSize('${t.key}',1)">＋</button>
+          </div>
+        </div>
+      `).join('')}
     </div>
   `).join('');
 }
@@ -1985,4 +2032,4 @@ function registerPWA(){
 window.addEventListener('DOMContentLoaded', initApp);
 </script>
 </body>
-  </html>
+</html>
