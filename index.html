@@ -127,6 +127,15 @@ button:active{transform:translateY(0.5px) scale(0.98)}
   background:rgba(255,255,255,0.7);padding:6px 12px;border-radius:10px;
   border:1px solid rgba(0,0,0,0.06);margin-bottom:18px;color:#444;
 }
+.card-due.due-overdue{background:#fee2e2;color:#b91c1c;border-color:#fca5a5}
+.card-due.due-today{background:#fee2e2;color:#b91c1c;border-color:#fca5a5;font-weight:800}
+.card-due.due-soon{background:#fef3c7;color:#b45309;border-color:#fcd34d}
+.card-due.due-normal{background:#dcfce7;color:#15803d;border-color:#86efac}
+.card-due.due-none{background:rgba(255,255,255,0.7);color:#666}
+body.dark .card-due.due-overdue{background:rgba(185,28,28,0.22);color:#fca5a5;border-color:rgba(185,28,28,0.4)}
+body.dark .card-due.due-today{background:rgba(185,28,28,0.28);color:#fecaca;border-color:rgba(185,28,28,0.5)}
+body.dark .card-due.due-soon{background:rgba(180,83,9,0.22);color:#fcd34d;border-color:rgba(180,83,9,0.4)}
+body.dark .card-due.due-normal{background:rgba(21,128,61,0.22);color:#86efac;border-color:rgba(21,128,61,0.4)}
 
 .card-actions{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:7px;margin-top:auto}
 .card-actions button{padding:8px 6px;font-size:12px;border-radius:9px}
@@ -333,13 +342,25 @@ body.dark .group{border-color:rgba(255,255,255,0.1)}
 body.dark .bottom-nav{background:rgba(20,21,30,0.9);border-color:rgba(255,255,255,0.1)}
 body.dark .preview-wrap{background:rgba(30,32,44,0.5)}
 
+/* Download fallback toast */
+.dl-toast{
+  position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);
+  background:#1c1c26;color:#fff;padding:12px 16px;border-radius:14px;
+  font:12.5px system-ui,-apple-system,sans-serif;display:flex;align-items:center;gap:10px;
+  box-shadow:0 14px 34px rgba(0,0,0,0.35);z-index:10000;opacity:0;
+  transition:all .3s cubic-bezier(.2,.8,.2,1);pointer-events:none;max-width:92vw;
+}
+.dl-toast.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
+.dl-toast a{color:#c4b5fd;font-weight:700;text-decoration:underline;white-space:nowrap}
+.dl-toast .dl-close{background:rgba(255,255,255,0.14);border:0;color:#fff;width:22px;height:22px;border-radius:50%;font-size:12px;padding:0;flex:none}
+
 /* Native A4 Print */
 @page{size:A4 portrait;margin:0}
 @media print{
   html,body{width:210mm;height:297mm;margin:0!important;padding:0!important;background:#fff!important}
   body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .app{width:210mm;margin:0!important;padding:0!important}
-  .navbar,.panel,.site-footer,.builder-nav,.bottom-nav,.modal-overlay,#view-dashboard{display:none!important}
+  .navbar,.panel,.site-footer,.builder-nav,.bottom-nav,.modal-overlay,#view-dashboard,.dl-toast{display:none!important}
   #view-builder{display:block!important}
   .layout{display:block!important;width:210mm;margin:0!important;padding:0!important}
   .preview-wrap{
@@ -537,7 +558,7 @@ body.dark .preview-wrap{background:rgba(30,32,44,0.5)}
               <div class="ornament" aria-hidden="true">
                 <span></span><i>◆</i><span></span>
               </div>
-              <div class="section-title">নির্দেশনায়</div>
+              <div class="section-title">নির্দেশনায়</div>
               <div class="person">
                 <strong id="oTeacher"></strong><br>
                 <span id="oDesignation"></span>
@@ -548,7 +569,7 @@ body.dark .preview-wrap{background:rgba(30,32,44,0.5)}
               <div class="ornament" aria-hidden="true">
                 <span></span><i>◆</i><span></span>
               </div>
-              <div class="section-title">উপস্থাপনায়</div>
+              <div class="section-title">উপস্থাপনায়</div>
             </div>
 
             <div class="info" style="margin-top:5mm">
@@ -635,7 +656,7 @@ body.dark .preview-wrap{background:rgba(30,32,44,0.5)}
           </div>
 
           <div>
-            <label>Submission Date / জমা দেওয়ার তারিখ</label>
+            <label>Submission Date / জমা দেওয়ার তারিখ</label>
             <input id="m_submissionDate" type="date">
           </div>
           <div>
@@ -721,7 +742,7 @@ const COURSES_DB = [
   { name: "বাংলা উপন্যাস-১", code: "২১১০০৫" },
   { name: "বাংলা কবিতা- ১", code: "২১১০০৭" },
   { name: "রাষ্ট্রবিজ্ঞানের ভূমিকা পরিচিতি / সমাজকর্মের ভূমিকা", code: "২১১৯০৯/২১২১০৯" },
-  { name: "বাংলাদেশের ইতিহাস: ভাষা, সংস্কৃতি ও পরিচয়", code: "২১১৫২১" },
+  { name: "বাংলাদেশের ইতিহাস: ভাষা, সংস্কৃতি ও পরিচয়", code: "২১১৫২১" },
   { name: "তথ্য ও যোগাযোগ প্রযুক্তি", code: "২১৬৬০১" },
   { name: "তথ্য ও যোগাযোগ প্রযুক্তি (ব্যবহারিক)", code: "২১৬৬০২" }
 ];
@@ -730,7 +751,7 @@ const TEACHERS_DB = [
   {
     name: "প্রফেসর তাহমিনা আশরাফী (অধ্যক্ষ)",
     designation: "অধ্যাপক (ইতিহাস বিভাগ)",
-    courseName: "বাংলাদেশের ইতিহাস: ভাষা, সংস্কৃতি ও পরিচয়",
+    courseName: "বাংলাদেশের ইতিহাস: ভাষা, সংস্কৃতি ও পরিচয়",
     courseCode: "২১১৫২১"
   },
   {
@@ -915,6 +936,7 @@ function initApp(){
   renderAssignments(assignments);
   bindBuilderEvents();
   initTheme();
+  registerPWA();
 }
 
 function loadAssignments(){
@@ -948,6 +970,34 @@ function switchView(viewName){
   }
 }
 
+/* ---------- Deadline countdown badge ---------- */
+function getDeadlineBadge(dateStr){
+  if(!dateStr) return { text: "📅 তারিখ নির্ধারিত নেই", cls: "due-none" };
+
+  const today = new Date();
+  today.setHours(0,0,0,0);
+
+  const parts = dateStr.split("-");
+  const due = parts.length === 3 ? new Date(+parts[0], +parts[1]-1, +parts[2]) : new Date(dateStr);
+  due.setHours(0,0,0,0);
+
+  const diffDays = Math.round((due - today) / 86400000);
+
+  if(diffDays < 0){
+    return { text: `⛔ মেয়াদ শেষ (${Math.abs(diffDays)} দিন আগে)`, cls: "due-overdue" };
+  }
+  if(diffDays === 0){
+    return { text: "🔥 আজই শেষ দিন", cls: "due-today" };
+  }
+  if(diffDays === 1){
+    return { text: "⏰ আগামীকাল শেষ দিন", cls: "due-soon" };
+  }
+  if(diffDays <= 3){
+    return { text: `⚠️ বাকি ${diffDays} দিন`, cls: "due-soon" };
+  }
+  return { text: `📅 বাকি ${diffDays} দিন`, cls: "due-normal" };
+}
+
 function renderAssignments(list){
   const grid = document.getElementById('assignmentGrid');
   const empty = document.getElementById('emptyState');
@@ -963,6 +1013,7 @@ function renderAssignments(list){
     const card = document.createElement('div');
     card.className = "assignment-card";
     const fullCourse = item.courseName ? `${item.courseName} ${item.courseCode ? '['+item.courseCode+']' : ''}` : '';
+    const badge = getDeadlineBadge(item.submissionDate);
 
     card.innerHTML = `
       <div>
@@ -973,8 +1024,8 @@ function renderAssignments(list){
           <strong>পদবি:</strong> ${escapeHtml(item.designation || '—')}<br>
           ${fullCourse ? `<strong>কোর্স:</strong> ${escapeHtml(fullCourse)}<br>` : ''}
         </div>
-        <div class="card-due">
-          📅 জমা দিতে হবে: ${escapeHtml(formatBengaliDisplayDate(item.submissionDate))}
+        <div class="card-due ${badge.cls}">
+          ${badge.text}
         </div>
       </div>
       <div class="card-actions">
@@ -1296,7 +1347,39 @@ function downloadPDF(){
   }, 120);
 }
 
-/* ROBUST BLOB-BASED PNG DOWNLOAD (Fixes Mobile Chrome/Android Download Failed error) */
+/* ---------- Small toast with a guaranteed manual fallback link ---------- */
+function showDownloadToast(url, filename){
+  let toast = document.getElementById('dlToast');
+  if(toast) toast.remove();
+
+  toast = document.createElement('div');
+  toast.id = 'dlToast';
+  toast.className = 'dl-toast';
+  toast.innerHTML = `
+    <span>⬇️ ডাউনলোড শুরু না হলে —</span>
+    <a href="${url}" download="${filename}" id="dlToastLink">এখানে চাপুন</a>
+    <button class="dl-close" type="button" aria-label="close">✕</button>
+  `;
+  document.body.appendChild(toast);
+
+  requestAnimationFrame(()=> toast.classList.add('show'));
+
+  const remove = ()=>{
+    toast.classList.remove('show');
+    setTimeout(()=> toast.remove(), 300);
+  };
+  toast.querySelector('.dl-close').addEventListener('click', remove);
+
+  // Tapping the fallback link should also try to open the image directly
+  // (in case the download attribute is ignored on some mobile browsers).
+  toast.querySelector('#dlToastLink').addEventListener('click', (e)=>{
+    setTimeout(remove, 400);
+  });
+
+  setTimeout(remove, 12000);
+}
+
+/* ROBUST BLOB-BASED PNG DOWNLOAD (Fixes Mobile Chrome/Android "Download failed" / auto-cancel issue) */
 async function downloadHighQualityPNG(){
 
   updatePreview();
@@ -1334,15 +1417,16 @@ async function downloadHighQualityPNG(){
     btn.innerHTML = "⏳ PNG তৈরি হচ্ছে...";
   });
 
+  let blobUrl = null;
+
   try {
 
-    // Font load complete হওয়ার জন্য অপেক্ষা
+    // Font load complete হওয়ার জন্য অপেক্ষা
     if (document.fonts && document.fonts.ready) {
       await document.fonts.ready;
     }
 
     // Mobile-friendly high quality scale
-    // 3x এর পরিবর্তে 2x ব্যবহার করা হয়েছে
     const scale = 2;
 
     const canvas = await html2canvas(page, {
@@ -1388,28 +1472,31 @@ async function downloadHighQualityPNG(){
       throw new Error("Empty PNG");
     }
 
-    const blobUrl = URL.createObjectURL(blob);
+    blobUrl = URL.createObjectURL(blob);
 
-    // Android Chrome compatible download
+    // Android Chrome compatible download — trigger immediately, no artificial delay
+    // (delays after the async work can make some mobile browsers drop/cancel
+    // the download because it no longer looks like a direct user action)
     const link = document.createElement("a");
-
     link.style.display = "none";
     link.href = blobUrl;
     link.download = finalName;
+    link.rel = "noopener";
 
     document.body.appendChild(link);
-
-    // Small delay helps Android Chrome
-    await new Promise(resolve => setTimeout(resolve, 100));
-
-    link.click();
-
+    link.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true, view: window }));
     document.body.removeChild(link);
 
-    // URL immediately revoke না করে একটু সময় রাখা
+    // Always show a manual fallback link too — some mobile browsers silently
+    // swallow the programmatic download without any error, so this guarantees
+    // the user always has a working way to save the file.
+    showDownloadToast(blobUrl, finalName);
+
+    // Revoke later, well after both the auto-download and the fallback link
+    // have had a chance to be used.
     setTimeout(() => {
-      URL.revokeObjectURL(blobUrl);
-    }, 10000);
+      if(blobUrl) URL.revokeObjectURL(blobUrl);
+    }, 60000);
 
     // Memory release
     canvas.width = 1;
@@ -1487,7 +1574,7 @@ async function downloadHighQualityPNG(){
           <body>
 
             <div class="info">
-              PNG তৈরি হয়েছে — ছবির উপর Long Press করে
+              PNG তৈরি হয়েছে — ছবির উপর Long Press করে
               <b>Download image</b> নির্বাচন করুন।
             </div>
 
@@ -1504,7 +1591,7 @@ async function downloadHighQualityPNG(){
       } else {
 
         alert(
-          "PNG তৈরি হয়েছে কিন্তু Chrome download করতে পারেনি। " +
+          "PNG তৈরি হয়েছে কিন্তু Chrome download করতে পারেনি। " +
           "Chrome-এর Download permission/check করে আবার চেষ্টা করুন।"
         );
 
@@ -1515,8 +1602,8 @@ async function downloadHighQualityPNG(){
       console.error("PNG fallback error:", fallbackError);
 
       alert(
-        "PNG তৈরি করা সম্ভব হয়নি। " +
-        "দয়া করে আবার চেষ্টা করুন অথবা High Quality PDF ব্যবহার করুন।"
+        "PNG তৈরি করা সম্ভব হয়নি। " +
+        "দয়া করে আবার চেষ্টা করুন অথবা High Quality PDF ব্যবহার করুন।"
       );
 
     }
@@ -1547,6 +1634,97 @@ function initTheme(){
   if(localStorage.getItem('hub_theme') === 'dark'){
     document.body.classList.add('dark');
     themeBtn.textContent = '☾ Dark';
+  }
+}
+
+/* ---------- PWA: installable + offline shell ---------- */
+function registerPWA(){
+  // Web App Manifest — injected as a data: URI so the whole app stays a single file.
+  const manifest = {
+    name: "Assignment Cover Hub & Builder",
+    short_name: "Assignment Hub",
+    description: "টঙ্গী সরকারি কলেজের অ্যাসাইনমেন্ট কভার পেজ তৈরি ও সংরক্ষণের টুল",
+    start_url: location.pathname + location.search,
+    scope: location.pathname,
+    display: "standalone",
+    orientation: "portrait",
+    background_color: "#f4f4f8",
+    theme_color: "#6d5dfc",
+    icons: [
+      {
+        src: "data:image/svg+xml," + encodeURIComponent(
+          `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
+             <rect width="192" height="192" rx="36" fill="#6d5dfc"/>
+             <text x="96" y="128" font-size="110" text-anchor="middle" fill="#fff" font-family="serif">✦</text>
+           </svg>`
+        ),
+        sizes: "192x192",
+        type: "image/svg+xml",
+        purpose: "any maskable"
+      }
+    ]
+  };
+  const manifestBlob = new Blob([JSON.stringify(manifest)], { type: "application/manifest+json" });
+  const manifestUrl = URL.createObjectURL(manifestBlob);
+
+  const link = document.createElement('link');
+  link.rel = 'manifest';
+  link.href = manifestUrl;
+  document.head.appendChild(link);
+
+  // Meta tags for "Add to Home Screen" (Android/iOS)
+  const metas = [
+    { name: 'theme-color', content: '#6d5dfc' },
+    { name: 'mobile-web-app-capable', content: 'yes' },
+    { name: 'apple-mobile-web-app-capable', content: 'yes' },
+    { name: 'apple-mobile-web-app-status-bar-style', content: 'default' },
+    { name: 'apple-mobile-web-app-title', content: 'Assignment Hub' }
+  ];
+  metas.forEach(m => {
+    if(!document.querySelector(`meta[name="${m.name}"]`)){
+      const el = document.createElement('meta');
+      el.name = m.name;
+      el.content = m.content;
+      document.head.appendChild(el);
+    }
+  });
+
+  // Service worker for basic offline caching of the app shell.
+  // Registered from a Blob URL so the whole app can stay a single file.
+  // NOTE: this only works when the page is served over http(s) — it is
+  // skipped automatically on file:// or unsupported browsers, so it never
+  // breaks the app.
+  if('serviceWorker' in navigator && location.protocol.startsWith('http')){
+    const swSource = `
+      const CACHE_NAME = 'assignment-hub-cache-v1';
+      self.addEventListener('install', (event) => {
+        self.skipWaiting();
+      });
+      self.addEventListener('activate', (event) => {
+        event.waitUntil(self.clients.claim());
+      });
+      self.addEventListener('fetch', (event) => {
+        if(event.request.method !== 'GET') return;
+        event.respondWith(
+          caches.open(CACHE_NAME).then(async (cache) => {
+            try {
+              const fresh = await fetch(event.request);
+              cache.put(event.request, fresh.clone());
+              return fresh;
+            } catch (err) {
+              const cached = await cache.match(event.request);
+              return cached || Promise.reject(err);
+            }
+          })
+        );
+      });
+    `;
+    const swBlob = new Blob([swSource], { type: 'application/javascript' });
+    const swUrl = URL.createObjectURL(swBlob);
+
+    navigator.serviceWorker.register(swUrl).catch(()=>{
+      // Silently ignore — offline caching is a nice-to-have, not required.
+    });
   }
 }
 
