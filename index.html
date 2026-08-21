@@ -7,7 +7,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <!-- html2canvas for Ultra High-DPI PNG generation fallback -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -271,7 +271,7 @@ input:focus,select:focus{
 .modal-card{
   background:var(--glass-bg-strong);border:1px solid var(--glass-border);
   border-radius:24px;box-shadow:0 24px 60px rgba(0,0,0,0.2);
-  width:100%;max-width:540px;max-height:90vh;overflow-y:auto;
+  width:100%;max-width:580px;max-height:90vh;overflow-y:auto;
   padding:26px;position:relative;animation:modalIn .3s cubic-bezier(.16,1,.3,1) both;
 }
 .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
@@ -322,7 +322,7 @@ body.dark .group{border-color:rgba(255,255,255,0.1)}
 body.dark .bottom-nav{background:rgba(20,21,30,0.9);border-color:rgba(255,255,255,0.1)}
 body.dark .preview-wrap{background:rgba(30,32,44,0.5)}
 
-/* Native A4 Print Rules (Preserves crisp vector text & shapes) */
+/* Native A4 Print Rules */
 @page{size:A4 portrait;margin:0}
 @media print{
   html,body{width:210mm;height:297mm;margin:0!important;padding:0!important;background:#fff!important}
@@ -378,9 +378,7 @@ body.dark .preview-wrap{background:rgba(30,32,44,0.5)}
     </div>
   </header>
 
-  <!-- ==================================================
-       VIEW 1: HOME / DASHBOARD
-  ================================================== -->
+  <!-- VIEW 1: HOME / DASHBOARD -->
   <section id="view-dashboard" class="view-section active">
     <div class="dashboard-header">
       <div class="dashboard-title">
@@ -403,9 +401,7 @@ body.dark .preview-wrap{background:rgba(30,32,44,0.5)}
     </div>
   </section>
 
-  <!-- ==================================================
-       VIEW 2: COVER BUILDER & LIVE PREVIEW
-  ================================================== -->
+  <!-- VIEW 2: COVER BUILDER & LIVE PREVIEW -->
   <section id="view-builder" class="view-section">
     <div class="builder-nav">
       <button class="secondary" type="button" onclick="switchView('dashboard')">← Back to Home</button>
@@ -420,7 +416,6 @@ body.dark .preview-wrap{background:rgba(30,32,44,0.5)}
       <section class="panel">
         <h2>কভার পেজের তথ্য</h2>
 
-        <!-- Fast personal fields -->
         <label>শিক্ষার্থীর নাম</label>
         <input id="student" value="" placeholder="যেমন: মাহমুদুল হাসান নাহিদ">
 
@@ -442,7 +437,6 @@ body.dark .preview-wrap{background:rgba(30,32,44,0.5)}
               <option value="modern">Modern</option>
               <option value="cultural">Bengali Cultural</option>
             </select>
-            <div class="hint">Template শুধু visual style বদলাবে; তথ্য অপরিবর্তিত থাকবে।</div>
           </div>
 
           <div class="group">
@@ -500,11 +494,6 @@ body.dark .preview-wrap{background:rgba(30,32,44,0.5)}
           <button class="primary" type="button" onclick="downloadPDF()">📄 Generate PDF</button>
           <button class="secondary" type="button" onclick="downloadHighQualityPNG()">🖼 Download PNG</button>
           <button class="reset" type="button" onclick="resetRecommended()">↺ Reset Design</button>
-        </div>
-
-        <div class="hint" style="margin-top:10px">
-          ✓ Vector PDF uses the native print engine for 100% crisp typography.<br>
-          ✓ High Quality PNG renders at 300+ DPI for mobile devices.
         </div>
       </section>
 
@@ -590,9 +579,7 @@ body.dark .preview-wrap{background:rgba(30,32,44,0.5)}
     </div>
   </section>
 
-  <!-- ==================================================
-       MODAL 1: ADD / EDIT ASSIGNMENT
-  ================================================== -->
+  <!-- MODAL 1: ADD / EDIT ASSIGNMENT (WITH PRESET DROPDOWNS) -->
   <div id="assignmentModal" class="modal-overlay">
     <div class="modal-card">
       <div class="modal-header">
@@ -605,16 +592,41 @@ body.dark .preview-wrap{background:rgba(30,32,44,0.5)}
         <div class="modal-body">
           <div class="full-width">
             <label>Assignment Title / শিরোনাম *</label>
-            <input id="m_title" required placeholder="যেমন: বঙ্কিমচন্দ্রের কৃষ্ণকান্তের উইল...">
+            <input id="m_title" required placeholder="যেমন: বঙ্কিমচন্দ্র চট্টোপাধ্যায়ের ‘কৃষ্ণকান্তের উইল’ উপন্যাস অবলম্বনে...">
+          </div>
+
+          <!-- Quick Selector Dropdown -->
+          <div class="full-width" style="background:rgba(109,93,252,0.06);padding:10px 14px;border-radius:12px;border:1px solid rgba(109,93,252,0.18)">
+            <label style="margin-top:0;color:var(--accent)">⚡ শিক্ষক প্রিসেট সিলেক্ট করুন (অটোফিল হবে)</label>
+            <select id="m_teacherPreset" onchange="onTeacherPresetSelected(this.value)">
+              <option value="">-- শিক্ষক সিলেক্ট করুন (অপশনাল) --</option>
+            </select>
           </div>
 
           <div>
             <label>Teacher Name / শিক্ষকের নাম *</label>
-            <input id="m_teacher" required placeholder="যেমন: কাজী মেরাজুল জান্নাত">
+            <input id="m_teacher" required placeholder="শিক্ষকের নাম">
           </div>
           <div>
             <label>Designation / পদবি *</label>
-            <input id="m_designation" required placeholder="যেমন: সহকারী অধ্যাপক (বাংলা)">
+            <input id="m_designation" required placeholder="যেমন: সহকারী অধ্যাপক (বাংলা বিভাগ)">
+          </div>
+
+          <!-- Course Preset Dropdown -->
+          <div class="full-width" style="background:rgba(109,93,252,0.06);padding:10px 14px;border-radius:12px;border:1px solid rgba(109,93,252,0.18)">
+            <label style="margin-top:0;color:var(--accent)">⚡ কোর্স সিলেক্ট করুন (অটোফিল হবে)</label>
+            <select id="m_coursePreset" onchange="onCoursePresetSelected(this.value)">
+              <option value="">-- কোর্স সিলেক্ট করুন (অপশনাল) --</option>
+            </select>
+          </div>
+
+          <div>
+            <label>Course Name / কোর্স নাম</label>
+            <input id="m_courseName" placeholder="যেমন: বাংলা উপন্যাস-১">
+          </div>
+          <div>
+            <label>Course Code / বিষয় কোড</label>
+            <input id="m_courseCode" placeholder="যেমন: ২১১০০৫">
           </div>
 
           <div>
@@ -624,15 +636,6 @@ body.dark .preview-wrap{background:rgba(30,32,44,0.5)}
           <div>
             <label>Assignment No. / নং</label>
             <input id="m_assignmentNo" value="০১" placeholder="০১">
-          </div>
-
-          <div>
-            <label>Course Name / কোর্স নাম</label>
-            <input id="m_courseName" placeholder="যেমন: কবিতা–১">
-          </div>
-          <div>
-            <label>Course Code / কোর্স কোড</label>
-            <input id="m_courseCode" placeholder="যেমন: ২১১০০৬">
           </div>
 
           <div>
@@ -672,9 +675,7 @@ body.dark .preview-wrap{background:rgba(30,32,44,0.5)}
     </div>
   </div>
 
-  <!-- ==================================================
-       MODAL 2: CONFIRM DELETE
-  ================================================== -->
+  <!-- MODAL 2: CONFIRM DELETE -->
   <div id="deleteModal" class="modal-overlay">
     <div class="modal-card" style="max-width:380px;text-align:center">
       <div style="font-size:36px;margin-bottom:10px">⚠️</div>
@@ -708,12 +709,98 @@ body.dark .preview-wrap{background:rgba(30,32,44,0.5)}
 
 </div>
 
-<!-- ==================================================
-     APPLICATION JAVASCRIPT LOGIC
-================================================== -->
+<!-- APPLICATION JAVASCRIPT LOGIC -->
 <script>
+/* ==================================================
+   TEACHER & COURSE PRESET DATABASE
+================================================== */
+const COURSES_DB = [
+  { name: "বাংলাদেশ এবং বাঙালির সমাজ ও সংস্কৃতি", code: "২১১০০১" },
+  { name: "বাংলা ভাষার ইতিহাস ও ব্যবহারিক বাংলা", code: "২১১০০৩" },
+  { name: "বাংলা উপন্যাস-১", code: "২১১০০৫" },
+  { name: "বাংলা কবিতা- ১", code: "২১১০০৭" },
+  { name: "রাষ্ট্রবিজ্ঞানের ভূমিকা পরিচিতি / সমাজকর্মের ভূমিকা", code: "২১১৯০৯/২১২১০৯" },
+  { name: "বাংলাদেশের ইতিহাস: ভাষা, সংস্কৃতি ও পরিচয়", code: "২১১৫২১" },
+  { name: "তথ্য ও যোগাযোগ প্রযুক্তি", code: "২১৬৬০১" },
+  { name: "তথ্য ও যোগাযোগ প্রযুক্তি (ব্যবহারিক)", code: "২১৬৬০২" }
+];
+
+const TEACHERS_DB = [
+  {
+    name: "প্রফেসর তাহমিনা আশরাফী (অধ্যক্ষ)",
+    designation: "অধ্যাপক (ইতিহাস বিভাগ)",
+    courseName: "বাংলাদেশের ইতিহাস: ভাষা, সংস্কৃতি ও পরিচয়",
+    courseCode: "২১১৫২১"
+  },
+  {
+    name: "প্রফেসর কাজী রোমেনা খাতুন",
+    designation: "অধ্যাপক (বাংলা বিভাগ)",
+    courseName: "বাংলা উপন্যাস-১",
+    courseCode: "২১১০০৫"
+  },
+  {
+    name: "ড. বিমল মল্লিক",
+    designation: "সহযোগী অধ্যাপক (বাংলা বিভাগ)",
+    courseName: "বাংলা ভাষার ইতিহাস ও ব্যবহারিক বাংলা",
+    courseCode: "২১১০০৩"
+  },
+  {
+    name: "মোহাম্মদ কামরুল হাসান",
+    designation: "সহযোগী অধ্যাপক (বাংলা বিভাগ)",
+    courseName: "বাংলা কবিতা- ১",
+    courseCode: "২১১০০৭"
+  },
+  {
+    name: "নাজমা সুলতানা",
+    designation: "সহযোগী অধ্যাপক (বাংলা বিভাগ)",
+    courseName: "বাংলা উপন্যাস-১",
+    courseCode: "২১১০০৫"
+  },
+  {
+    name: "আব্দুল হাকিম",
+    designation: "সহকারী অধ্যাপক (বাংলা বিভাগ)",
+    courseName: "বাংলা কবিতা- ১",
+    courseCode: "২১১০০৭"
+  },
+  {
+    name: "ফাতেমা তুজ জাহান",
+    designation: "সহকারী অধ্যাপক (বাংলা বিভাগ)",
+    courseName: "বাংলা ভাষার ইতিহাস ও ব্যবহারিক বাংলা",
+    courseCode: "২১১০০৩"
+  },
+  {
+    name: "শাহরিয়া আল রশিদ",
+    designation: "সহকারী অধ্যাপক (বাংলা বিভাগ)",
+    courseName: "বাংলাদেশ এবং বাঙালির সমাজ ও সংস্কৃতি",
+    courseCode: "২১১০০১"
+  },
+  {
+    name: "মোঃ মিলন খান",
+    designation: "প্রভাষক (বাংলা বিভাগ)",
+    courseName: "বাংলাদেশ এবং বাঙালির সমাজ ও সংস্কৃতি",
+    courseCode: "২১১০০১"
+  },
+  {
+    name: "কাজী মেরাজুল জান্নাত",
+    designation: "সহকারী অধ্যাপক (বাংলা বিভাগ)",
+    courseName: "বাংলা উপন্যাস-১",
+    courseCode: "২১১০০৫"
+  },
+  {
+    name: "মোঃ শাহিনুর রহমান",
+    designation: "প্রভাষক (বাংলা বিভাগ)",
+    courseName: "বাংলা উপন্যাস-১",
+    courseCode: "২১১০০৫"
+  },
+  {
+    name: "জ্যাক পারভেজ রোজারিও",
+    designation: "প্রভাষক (রাষ্ট্রবিজ্ঞান বিভাগ)",
+    courseName: "রাষ্ট্রবিজ্ঞানের ভূমিকা পরিচিতি / সমাজকর্মের ভূমিকা",
+    courseCode: "২১১৯০৯/২১২১০৯"
+  }
+];
+
 const MULTI_STORAGE_KEY = 'assignmentCoverHub_assignments_v1';
-const CURRENT_ACTIVE_KEY = 'assignmentCoverHub_active_id';
 
 const pairs = {
   assignment: 'oAssignment',
@@ -727,16 +814,10 @@ const pairs = {
   session: 'oSession'
 };
 
-const builderFieldIds = [
-  'student','roll','date','assignment','title','course','teacher',
-  'designation','className','session','borderStyle','borderWidth','templateSelect'
-];
-
 let assignments = [];
 let currentAssignmentId = null;
 let itemToDeleteId = null;
 
-/* Format YYYY-MM-DD to DD-MM-YY / DD-MM-YYYY */
 function formatDate(v){
   if(!v) return "";
   const parts = v.split("-");
@@ -744,7 +825,6 @@ function formatDate(v){
   return parts[2] + "-" + parts[1] + "-" + parts[0];
 }
 
-/* Format for card display */
 function formatBengaliDisplayDate(v){
   if(!v) return "নির্ধারিত নেই";
   const parts = v.split("-");
@@ -753,27 +833,77 @@ function formatBengaliDisplayDate(v){
   return `${d}-${m}-${y}`;
 }
 
-/* Safe filename generator */
 function safeFilename(s){
   return (s || "").trim().replace(/[\\/:*?"<>|]/g, "_").replace(/\s+/g, "_") || "Assignment";
 }
 
 /* ==================================================
-   INIT & LOCAL STORAGE MANAGEMENT
+   POPULATE DROPDOWNS & HANDLE AUTO-SELECTION
+================================================== */
+function populatePresetDropdowns(){
+  const tSel = document.getElementById('m_teacherPreset');
+  tSel.innerHTML = '<option value="">-- শিক্ষক সিলেক্ট করুন (অপশনাল) --</option>';
+  TEACHERS_DB.forEach((t, idx) => {
+    const opt = document.createElement('option');
+    opt.value = idx;
+    opt.textContent = `${t.name} — ${t.designation}`;
+    tSel.appendChild(opt);
+  });
+
+  const cSel = document.getElementById('m_coursePreset');
+  cSel.innerHTML = '<option value="">-- কোর্স সিলেক্ট করুন (অপশনাল) --</option>';
+  COURSES_DB.forEach((c, idx) => {
+    const opt = document.createElement('option');
+    opt.value = idx;
+    opt.textContent = `${c.name} [${c.code}]`;
+    cSel.appendChild(opt);
+  });
+}
+
+function onTeacherPresetSelected(idxVal){
+  if(idxVal === "") return;
+  const t = TEACHERS_DB[idxVal];
+  if(!t) return;
+
+  document.getElementById('m_teacher').value = t.name;
+  document.getElementById('m_designation').value = t.designation;
+
+  if(t.courseName){
+    document.getElementById('m_courseName').value = t.courseName;
+    document.getElementById('m_courseCode').value = t.courseCode || "";
+
+    const cIdx = COURSES_DB.findIndex(c => c.name === t.courseName || c.code === t.courseCode);
+    if(cIdx !== -1) {
+      document.getElementById('m_coursePreset').value = cIdx;
+    }
+  }
+}
+
+function onCoursePresetSelected(idxVal){
+  if(idxVal === "") return;
+  const c = COURSES_DB[idxVal];
+  if(!c) return;
+
+  document.getElementById('m_courseName').value = c.name;
+  document.getElementById('m_courseCode').value = c.code;
+}
+
+/* ==================================================
+   INIT & STORAGE
 ================================================== */
 function initApp(){
+  populatePresetDropdowns();
   loadAssignments();
 
-  // Default sample assignment if storage is empty
   if(assignments.length === 0){
     const sample = {
       id: 'sample_01',
-      title: "বঙ্কিমচন্দ্রের কৃষ্ণকান্তের উইল অবলম্বনে তৎকালীন সমাজ ব্যবস্থা",
+      title: "বঙ্কিমচন্দ্র চট্টোপাধ্যায়ের ‘কৃষ্ণকান্তের উইল’ উপন্যাস অবলম্বনে তৎকালীন সমাজবাস্তবতা",
       teacherName: "কাজী মেরাজুল জান্নাত",
-      designation: "সহকারী অধ্যাপক (বাংলা)",
+      designation: "সহকারী অধ্যাপক (বাংলা বিভাগ)",
       submissionDate: "2026-08-23",
       assignmentNo: "০১",
-      courseName: "বাংলা উপন্যাস",
+      courseName: "বাংলা উপন্যাস-১",
       courseCode: "২১১০০৫",
       academicSession: "২০২৫–২৬",
       studentName: "",
@@ -806,9 +936,6 @@ function saveAssignmentsToStorage(){
   localStorage.setItem(MULTI_STORAGE_KEY, JSON.stringify(assignments));
 }
 
-/* ==================================================
-   VIEW SWITCHING
-================================================== */
 function switchView(viewName){
   document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
   document.querySelectorAll('.bottom-nav-item').forEach(el => el.classList.remove('active'));
@@ -827,9 +954,6 @@ function switchView(viewName){
   }
 }
 
-/* ==================================================
-   DASHBOARD RENDERING & SEARCH
-================================================== */
 function renderAssignments(list){
   const grid = document.getElementById('assignmentGrid');
   const empty = document.getElementById('emptyState');
@@ -891,7 +1015,7 @@ function escapeHtml(str) {
 }
 
 /* ==================================================
-   ADD / EDIT ASSIGNMENT MODAL
+   ADD & EDIT
 ================================================== */
 function openAddModal(){
   document.getElementById('modalTitleText').textContent = "Add Assignment";
@@ -902,6 +1026,8 @@ function openAddModal(){
   document.getElementById('m_className').value = "স্নাতক সম্মান (প্রথম বর্ষ)";
   document.getElementById('m_template').value = "minimal";
   document.getElementById('m_borderStyle').value = "solid";
+  document.getElementById('m_teacherPreset').value = "";
+  document.getElementById('m_coursePreset').value = "";
   openModal('assignmentModal');
 }
 
@@ -922,6 +1048,13 @@ function openEditModal(id){
   document.getElementById('m_className').value = item.className || "স্নাতক সম্মান (প্রথম বর্ষ)";
   document.getElementById('m_template').value = item.template || "minimal";
   document.getElementById('m_borderStyle').value = item.borderStyle || "solid";
+
+  // Match dropdowns if existing
+  const tIdx = TEACHERS_DB.findIndex(t => t.name === item.teacherName);
+  document.getElementById('m_teacherPreset').value = tIdx !== -1 ? tIdx : "";
+
+  const cIdx = COURSES_DB.findIndex(c => c.name === item.courseName || c.code === item.courseCode);
+  document.getElementById('m_coursePreset').value = cIdx !== -1 ? cIdx : "";
 
   openModal('assignmentModal');
 }
@@ -945,13 +1078,11 @@ function handleAssignmentFormSubmit(e){
   };
 
   if(id){
-    // Update existing
     const idx = assignments.findIndex(a => a.id === id);
     if(idx !== -1){
       assignments[idx] = { ...assignments[idx], ...itemData };
     }
   } else {
-    // Create new
     const newEntry = {
       id: 'asg_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
       studentName: "",
@@ -967,9 +1098,6 @@ function handleAssignmentFormSubmit(e){
   renderAssignments(assignments);
 }
 
-/* ==================================================
-   DELETE ASSIGNMENT
-================================================== */
 function promptDelete(id){
   itemToDeleteId = id;
   openModal('deleteModal');
@@ -985,18 +1113,15 @@ document.getElementById('confirmDeleteBtn').addEventListener('click', () => {
   }
 });
 
-/* Modal helpers */
 function openModal(id){
-  const m = document.getElementById(id);
-  m.classList.add('open');
+  document.getElementById(id).classList.add('open');
 }
 function closeModal(id){
-  const m = document.getElementById(id);
-  m.classList.remove('open');
+  document.getElementById(id).classList.remove('open');
 }
 
 /* ==================================================
-   GENERATE PDF WORKFLOW & COVER BUILDER LINK
+   BUILDER PREPARATION & EVENT BINDINGS
 ================================================== */
 function generatePdfFor(id){
   const item = assignments.find(a => a.id === id);
@@ -1004,7 +1129,6 @@ function generatePdfFor(id){
 
   currentAssignmentId = id;
 
-  // Auto populate builder fields
   document.getElementById("assignment").value = item.assignmentNo || "০১";
   document.getElementById("title").value = item.title || "";
   
@@ -1019,11 +1143,9 @@ function generatePdfFor(id){
   document.getElementById("session").value = item.academicSession || "২০২৫–২৬";
   document.getElementById("date").value = item.submissionDate || "";
 
-  // Student specific inputs
   document.getElementById("student").value = item.studentName || "";
   document.getElementById("roll").value = item.roll || "";
 
-  // Styling settings
   if(item.template) {
     document.getElementById("templateSelect").value = item.template;
     applyTemplate(item.template);
@@ -1040,9 +1162,6 @@ function generatePdfFor(id){
   switchView('builder');
 }
 
-/* ==================================================
-   COVER BUILDER ENGINE (PRESERVED & ENHANCED)
-================================================== */
 function updatePreview(){
   Object.entries(pairs).forEach(([a,b])=>{
     const el = document.getElementById(a);
@@ -1116,10 +1235,10 @@ function bindBuilderEvents(){
 
   document.getElementById('presetBtn').addEventListener('click', ()=>{
     document.getElementById("assignment").value = "০১";
-    document.getElementById("title").value = "বঙ্কিমচন্দ্রের কৃষ্ণকান্তের উইল অবলম্বনে তৎকালীন সমাজ ব্যবস্থা";
-    document.getElementById("course").value = "বাংলা উপন্যাস [২১১০০৫]";
+    document.getElementById("title").value = "বঙ্কিমচন্দ্র চট্টোপাধ্যায়ের ‘কৃষ্ণকান্তের উইল’ উপন্যাস অবলম্বনে তৎকালীন সমাজবাস্তবতা";
+    document.getElementById("course").value = "বাংলা উপন্যাস-১ [২১১০০৫]";
     document.getElementById("teacher").value = "কাজী মেরাজুল জান্নাত";
-    document.getElementById("designation").value = "সহকারী অধ্যাপক (বাংলা)";
+    document.getElementById("designation").value = "সহকারী অধ্যাপক (বাংলা বিভাগ)";
     document.getElementById("className").value = "স্নাতক সম্মান (প্রথম বর্ষ)";
     document.getElementById("session").value = "২০২৫–২৬";
     resetRecommended();
@@ -1170,9 +1289,6 @@ function syncBackToActiveAssignment(){
   }
 }
 
-/* ==================================================
-   DOWNLOAD ENGINES: PDF & HIGH-RES PNG
-================================================== */
 function downloadPDF(){
   updatePreview();
   const name = safeFilename(document.getElementById("student").value);
@@ -1202,7 +1318,6 @@ async function downloadHighQualityPNG(){
   const filename = `${title}_${name}_Roll_${roll}`.replace(/^_+|_+$/g, '') || "Assignment_Cover";
 
   try{
-    // High-resolution canvas render (scale = 3.5 for 300+ DPI sharpness on A4)
     const canvas = await html2canvas(page, {
       scale: 3.5,
       useCORS: true,
@@ -1220,9 +1335,6 @@ async function downloadHighQualityPNG(){
   }
 }
 
-/* ==================================================
-   THEME LOGIC
-================================================== */
 function initTheme(){
   const themeBtn = document.getElementById('themeBtn');
   themeBtn.addEventListener('click', ()=>{
@@ -1237,8 +1349,7 @@ function initTheme(){
   }
 }
 
-// Start application
 window.addEventListener('DOMContentLoaded', initApp);
 </script>
 </body>
-        </html>
+</html>
