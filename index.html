@@ -1298,43 +1298,241 @@ function downloadPDF(){
 
 /* ROBUST BLOB-BASED PNG DOWNLOAD (Fixes Mobile Chrome/Android Download Failed error) */
 async function downloadHighQualityPNG(){
-  updatePreview();
-  const page = document.getElementById('page');
-  const name = safeFilename(document.getElementById("student").value);
-  const roll = safeFilename(document.getElementById("roll").value);
-  const title = safeFilename(document.getElementById("title").value);
-  const filename = `${title}_${name}_Roll_${roll}`.replace(/^_+|_+$/g, '') || "Assignment_Cover";
 
-  try{
-    // High scale canvas render for sharp Bengali text
+  updatePreview();
+
+  const page = document.getElementById('page');
+
+  const student = document.getElementById("student").value.trim();
+  const roll = document.getElementById("roll").value.trim();
+  const title = document.getElementById("title").value.trim();
+
+  // Filename ছোট ও Android-compatible রাখা হচ্ছে
+  const clean = (text) => {
+    return (text || "")
+      .replace(/[\\/:*?"<>|]/g, "")
+      .replace(/\s+/g, "_")
+      .replace(/[^\w\u0980-\u09FF\-_.]/g, "_")
+      .substring(0, 60);
+  };
+
+  const filename =
+    clean(title) ||
+    "Assignment_Cover";
+
+  const finalName =
+    `${filename}${student ? "_" + clean(student) : ""}${roll ? "_Roll_" + clean(roll) : ""}.png`;
+
+  // Button reference
+  const buttons = document.querySelectorAll(
+    'button[onclick="downloadHighQualityPNG()"]'
+  );
+
+  buttons.forEach(btn => {
+    btn.disabled = true;
+    btn.dataset.oldText = btn.innerHTML;
+    btn.innerHTML = "⏳ PNG তৈরি হচ্ছে...";
+  });
+
+  try {
+
+    // Font load complete হওয়ার জন্য অপেক্ষা
+    if (document.fonts && document.fonts.ready) {
+      await document.fonts.ready;
+    }
+
+    // Mobile-friendly high quality scale
+    // 3x এর পরিবর্তে 2x ব্যবহার করা হয়েছে
+    const scale = 2;
+
     const canvas = await html2canvas(page, {
-      scale: 3,
+      scale: scale,
+
       useCORS: true,
-      allowTaint: true,
-      backgroundColor: '#ffffff',
+      allowTaint: false,
+
+      backgroundColor: "#ffffff",
+
       logging: false,
-      windowWidth: page.scrollWidth,
-      windowHeight: page.scrollHeight
+
+      imageTimeout: 15000,
+
+      width: page.offsetWidth,
+      height: page.offsetHeight,
+
+      scrollX: 0,
+      scrollY: 0,
+
+      windowWidth: page.offsetWidth,
+      windowHeight: page.offsetHeight
     });
 
-    // Convert to Blob for seamless mobile file downloads
-    canvas.toBlob((blob) => {
-      if(!blob){
-        alert("PNG তৈরিতে সমস্যা হয়েছে। দয়া করে PDF ডাউনলোড অপশন ব্যবহার করুন।");
-        return;
-      }
-      const blobUrl = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.download = `${filename}.png`;
-      link.href = blobUrl;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      setTimeout(() => URL.revokeObjectURL(blobUrl), 2000);
-    }, 'image/png');
+    // Canvas → PNG Blob
+    const blob = await new Promise((resolve, reject) => {
 
-  }catch(err){
-    alert("PNG ডাউনলোড করা সম্ভব হচ্ছে না। অনুগ্রহ করে 'High Quality PDF' অপশনটি ব্যবহার করুন।");
+      canvas.toBlob(
+        (result) => {
+          if (result) {
+            resolve(result);
+          } else {
+            reject(new Error("PNG blob creation failed"));
+          }
+        },
+        "image/png",
+        1.0
+      );
+
+    });
+
+    if (!blob || blob.size === 0) {
+      throw new Error("Empty PNG");
+    }
+
+    const blobUrl = URL.createObjectURL(blob);
+
+    // Android Chrome compatible download
+    const link = document.createElement("a");
+
+    link.style.display = "none";
+    link.href = blobUrl;
+    link.download = finalName;
+
+    document.body.appendChild(link);
+
+    // Small delay helps Android Chrome
+    await new Promise(resolve => setTimeout(resolve, 100));
+
+    link.click();
+
+    document.body.removeChild(link);
+
+    // URL immediately revoke না করে একটু সময় রাখা
+    setTimeout(() => {
+      URL.revokeObjectURL(blobUrl);
+    }, 10000);
+
+    // Memory release
+    canvas.width = 1;
+    canvas.height = 1;
+
+  } catch (error) {
+
+    console.error("PNG generation error:", error);
+
+    /*
+      Fallback:
+      যদি Android Chrome blob download block করে,
+      তাহলে PNG নতুন tab-এ open হবে।
+    */
+
+    try {
+
+      const fallbackCanvas = await html2canvas(page, {
+        scale: 1.5,
+        useCORS: true,
+        allowTaint: false,
+        backgroundColor: "#ffffff",
+        logging: false
+      });
+
+      const fallbackUrl = fallbackCanvas.toDataURL(
+        "image/png",
+        1.0
+      );
+
+      const newWindow = window.open();
+
+      if (newWindow) {
+
+        newWindow.document.write(`
+          <!doctype html>
+          <html>
+          <head>
+            <meta name="viewport" content="width=device-width,initial-scale=1">
+            <title>Assignment PNG</title>
+            <style>
+              html,body{
+                margin:0;
+                padding:0;
+                background:#333;
+                text-align:center;
+              }
+
+              img{
+                max-width:100%;
+                height:auto;
+                display:block;
+                margin:auto;
+              }
+
+              .info{
+                position:fixed;
+                top:0;
+                left:0;
+                right:0;
+                padding:12px;
+                background:#111;
+                color:#fff;
+                font-family:Arial,sans-serif;
+                font-size:14px;
+                z-index:10;
+              }
+
+              .space{
+                height:55px;
+              }
+            </style>
+          </head>
+
+          <body>
+
+            <div class="info">
+              PNG তৈরি হয়েছে — ছবির উপর Long Press করে
+              <b>Download image</b> নির্বাচন করুন।
+            </div>
+
+            <div class="space"></div>
+
+            <img src="${fallbackUrl}" alt="Assignment Cover">
+
+          </body>
+          </html>
+        `);
+
+        newWindow.document.close();
+
+      } else {
+
+        alert(
+          "PNG তৈরি হয়েছে কিন্তু Chrome download করতে পারেনি। " +
+          "Chrome-এর Download permission/check করে আবার চেষ্টা করুন।"
+        );
+
+      }
+
+    } catch (fallbackError) {
+
+      console.error("PNG fallback error:", fallbackError);
+
+      alert(
+        "PNG তৈরি করা সম্ভব হয়নি। " +
+        "দয়া করে আবার চেষ্টা করুন অথবা High Quality PDF ব্যবহার করুন।"
+      );
+
+    }
+
+  } finally {
+
+    // Button আবার active করা
+    buttons.forEach(btn => {
+      btn.disabled = false;
+
+      if (btn.dataset.oldText) {
+        btn.innerHTML = btn.dataset.oldText;
+      }
+
+    });
+
   }
 }
 
@@ -1355,4 +1553,4 @@ function initTheme(){
 window.addEventListener('DOMContentLoaded', initApp);
 </script>
 </body>
-</html>
+  </html>
