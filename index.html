@@ -854,8 +854,60 @@ function formatBengaliDisplayDate(v){
   return `${parts[2]}-${parts[1]}-${parts[0].slice(-2)}`;
 }
 
-function safeFilename(s){
-  return (s || "").trim().replace(/[\\/:*?"<>|]/g, "_").replace(/\s+/g, "_") || "Assignment";
+/* ---------- Filesystem-safe filename helpers ----------
+   Android/most filesystems cap filenames at 255 BYTES (not characters).
+   Bengali characters take ~3 bytes each in UTF-8, so a long Bengali
+   assignment title can silently blow past that limit and the OS refuses
+   to save the file ("Failed to save document" / "download failed").
+   These helpers sanitize punctuation the OS may reject and hard-cap the
+   final filename by byte length so saving never fails for this reason. */
+function sanitizeFilenamePart(s){
+  return (s || "")
+    .trim()
+    .replace(/[\\/:*?"<>|]/g, "")           // characters forbidden on most filesystems
+    .replace(/[\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F]/g, "") // curly quotes
+    .replace(/[\u2013\u2014\u2015]/g, "-")  // en/em dash -> hyphen
+    .replace(/[\u2026]/g, "")               // ellipsis
+    .replace(/\s+/g, "_");
+}
+
+function truncateBytes(str, maxBytes){
+  if(!str) return "";
+  if(typeof TextEncoder === "undefined"){
+    // very conservative fallback: assume worst case 4 bytes/char
+    return str.slice(0, Math.floor(maxBytes / 4));
+  }
+  const encoder = new TextEncoder();
+  if(encoder.encode(str).length <= maxBytes) return str;
+  let result = str;
+  while(result.length > 0 && encoder.encode(result).length > maxBytes){
+    result = result.slice(0, -1);
+  }
+  return result;
+}
+
+function safeFilename(s, maxBytes){
+  const cleaned = sanitizeFilenamePart(s);
+  const capped = maxBytes ? truncateBytes(cleaned, maxBytes) : cleaned;
+  return capped.replace(/^_+|_+$/g, "") || "Assignment";
+}
+
+/* Builds a final filename from parts, guaranteeing the WHOLE result
+   (including extension) stays well under the 255-byte OS limit. */
+function buildSafeFilename(parts, extension, maxTotalBytes){
+  maxTotalBytes = maxTotalBytes || 150; // safe margin under 255
+  const extBytes = new Blob([extension]).size;
+  const budget = Math.max(20, maxTotalBytes - extBytes);
+
+  // give each part a fair share of the byte budget first
+  const perPartBudget = Math.floor(budget / parts.length);
+  let joined = parts
+    .map(p => truncateBytes(sanitizeFilenamePart(p), perPartBudget))
+    .filter(Boolean)
+    .join("_");
+
+  joined = truncateBytes(joined, budget).replace(/^_+|_+$/g, "");
+  return (joined || "Assignment") + extension;
 }
 
 function populatePresetDropdowns(){
@@ -1329,13 +1381,20 @@ function syncBackToActiveAssignment(){
 
 function downloadPDF(){
   updatePreview();
-  const name = safeFilename(document.getElementById("student").value);
-  const roll = safeFilename(document.getElementById("roll").value);
-  const title = safeFilename(document.getElementById("title").value);
-  const filename = `${title}_${name}_Roll_${roll}`.replace(/^_+|_+$/g, '');
+  const name = document.getElementById("student").value;
+  const roll = document.getElementById("roll").value;
+  const title = document.getElementById("title").value;
+
+  // Cap total byte length so Android's "Save as PDF" print flow never
+  // fails with "Failed to save document" on long Bengali titles.
+  const filenameNoExt = buildSafeFilename(
+    [title, name, roll ? `Roll_${roll}` : ""],
+    "", // no extension here — .pdf is appended by the print dialog itself
+    120
+  );
 
   const oldTitle = document.title;
-  document.title = filename || "Assignment_Cover";
+  document.title = filenameNoExt || "Assignment_Cover";
   document.body.classList.add("pdf-mode");
 
   setTimeout(()=>{
@@ -1390,21 +1449,16 @@ async function downloadHighQualityPNG(){
   const roll = document.getElementById("roll").value.trim();
   const title = document.getElementById("title").value.trim();
 
-  // Filename ছোট ও Android-compatible রাখা হচ্ছে
-  const clean = (text) => {
-    return (text || "")
-      .replace(/[\\/:*?"<>|]/g, "")
-      .replace(/\s+/g, "_")
-      .replace(/[^\w\u0980-\u09FF\-_.]/g, "_")
-      .substring(0, 60);
-  };
-
-  const filename =
-    clean(title) ||
-    "Assignment_Cover";
-
-  const finalName =
-    `${filename}${student ? "_" + clean(student) : ""}${roll ? "_Roll_" + clean(roll) : ""}.png`;
+  // Filename ছোট ও Android-compatible রাখা হচ্ছে — total byte length is
+  // hard-capped (not just character count) because Android's filesystem
+  // rejects filenames over 255 BYTES, and long Bengali titles blow past
+  // that easily (each Bengali character is ~3 bytes in UTF-8). This is
+  // what was causing "1 download failed" on long assignment titles.
+  const finalName = buildSafeFilename(
+    [title, student, roll ? `Roll_${roll}` : ""],
+    ".png",
+    120
+  );
 
   // Button reference
   const buttons = document.querySelectorAll(
