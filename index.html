@@ -184,6 +184,20 @@ input:focus,select:focus{
 .ui-tools{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
 .ui-tools button{font-size:11px;padding:8px}
 
+.fs-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:7px 0}
+.fs-label{flex:1;font-size:11.5px;font-weight:600;color:var(--ink)}
+.fs-controls{display:flex;align-items:center;gap:5px}
+.fs-btn{
+  width:25px;height:25px;padding:0;border-radius:8px;font:700 13px system-ui,sans-serif;
+  background:rgba(0,0,0,0.06);color:var(--ink);flex:none;
+}
+.fs-btn:hover{background:rgba(0,0,0,0.12)}
+.fs-val{min-width:32px;text-align:center;font:700 11.5px system-ui,sans-serif;color:var(--accent)}
+body.dark .fs-btn{background:rgba(255,255,255,0.1)}
+body.dark .fs-btn:hover{background:rgba(255,255,255,0.18)}
+.fs-reset{width:100%;margin-top:6px;background:rgba(255,255,255,0.5);border:1px solid rgba(0,0,0,0.1);font-size:11px;padding:8px}
+body.dark .fs-reset{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.12)}
+
 .preview-wrap{
   background:rgba(215,215,225,0.45);border:1px solid var(--glass-border);
   border-radius:20px;padding:24px;display:flex;justify-content:center;
@@ -236,6 +250,12 @@ input:focus,select:focus{
 .bottom{margin-top:auto;text-align:center}
 .bottom .ornament{margin:0}
 
+/* Split structures (Hidden by default in standard templates) */
+.split-body{display:none;grid-template-columns:1fr 1px 1.15fr;gap:6mm;margin-top:10mm;align-items:stretch}
+.split-divider{background:#111;width:1.5px;margin:auto 0}
+.split-col{display:flex;flex-direction:column;gap:5mm}
+.split-footer-date{display:none}
+
 /* TEMPLATES - STRICTLY BLACK & WHITE */
 .page.template-modern .frame{
   border-width:1.5px;
@@ -279,6 +299,177 @@ input:focus,select:focus{
 .page.template-cultural .ornament i{
   font-size:11px;
   transform:rotate(45deg);
+}
+
+.page.template-handwritten .frame{
+  border-width:1.3px!important;
+  border-color:#111!important;
+  border-radius:0;
+  box-shadow:inset 0 0 0 2.6mm #fff, inset 0 0 0 2.9mm #111;
+  outline:1px solid transparent;
+}
+.page.template-handwritten .frame::before{
+  content:"✓";
+  position:absolute;
+  top:3mm;right:5mm;
+  font-size:16px;
+  font-family:serif;
+  transform:rotate(-8deg);
+  color:#111;
+  opacity:.75;
+}
+.page.template-handwritten .ornament{gap:0;height:auto;margin:6mm 0 5mm}
+.page.template-handwritten .ornament span{flex:1 1 auto;height:1.4px;background:#111}
+.page.template-handwritten .ornament i{display:none}
+.page.template-handwritten .pill{
+  border-radius:3px;border-width:1.3px;
+}
+.page.template-handwritten .section-title{
+  border-radius:3px;border-width:1.3px;
+}
+
+.page.template-elegant .frame{
+  border:0;
+  background:
+    linear-gradient(#111,#111) top left / 9mm 1.3px no-repeat,
+    linear-gradient(#111,#111) top left / 1.3px 9mm no-repeat,
+    linear-gradient(#111,#111) top right / 9mm 1.3px no-repeat,
+    linear-gradient(#111,#111) top right / 1.3px 9mm no-repeat,
+    linear-gradient(#111,#111) bottom left / 9mm 1.3px no-repeat,
+    linear-gradient(#111,#111) bottom left / 1.3px 9mm no-repeat,
+    linear-gradient(#111,#111) bottom right / 9mm 1.3px no-repeat,
+    linear-gradient(#111,#111) bottom right / 1.3px 9mm no-repeat,
+    #fff;
+  box-shadow:inset 0 0 0 1px rgba(17,17,17,0.12);
+}
+.page.template-elegant .college{letter-spacing:1px}
+.page.template-elegant .pill{
+  border:0;border-radius:0;border-bottom:1.3px solid #111;
+  padding:4px 4px;letter-spacing:1px;background:transparent;
+}
+.page.template-elegant .section-title{
+  border:0;border-radius:0;border-bottom:1.3px solid #111;
+  padding:2px 2px 5px;letter-spacing:2px;background:transparent;
+}
+.page.template-elegant .ornament i{opacity:.55}
+
+.page.template-boxed .frame{border-width:1px}
+.page.template-boxed .center{
+  border:1px solid #111;border-radius:2mm;padding:6mm 5mm 5mm;
+}
+.page.template-boxed .info{
+  border:1px solid #111;border-radius:2mm;padding:4mm 5mm;margin-top:7mm;
+}
+.page.template-boxed .row{border-bottom:1px dotted #ccc}
+.page.template-boxed .row:last-child{border-bottom:0}
+.page.template-boxed .section{
+  border:1px solid #111;border-radius:2mm;padding:5mm 4mm 4mm;margin-top:6mm;
+}
+.page.template-boxed .section .ornament{display:none}
+.page.template-boxed .section-title{
+  position:relative;top:-9.5mm;background:#fff;padding:2px 10px;
+}
+.page.template-boxed .person{margin-top:1mm}
+.page.template-boxed .bottom .ornament{display:flex}
+
+/* ══════════════ NEW THEME 1: IMAGE INSPIRED SPLIT THEME (স্প্লিট ড্রাফট) ══════════════ */
+.page.template-split-draft .frame{
+  border:3px double #111!important;
+  border-radius:0;
+  padding:14mm 12mm 12mm;
+}
+.page.template-split-draft .center .college{
+  border-bottom:1.5px solid #111;
+  padding-bottom:3mm;
+  display:inline-block;
+}
+.page.template-split-draft .center .pill{
+  border:none;
+  border-bottom:1.5px solid #111;
+  border-top:1.5px solid #111;
+  border-radius:0;
+  padding:2px 12px;
+  background:transparent;
+}
+.page.template-split-draft .info-default,
+.page.template-split-draft .sections-default{
+  display:none;
+}
+.page.template-split-draft .split-body{
+  display:grid;
+  margin-top:10mm;
+}
+.page.template-split-draft .split-divider{
+  background:transparent;
+  border-left:1.5px solid #111;
+  border-right:1.5px solid #111;
+  width:4px;
+}
+.page.template-split-draft .split-col .section-title{
+  border:none;border-radius:0;padding:0;text-decoration:underline;text-underline-offset:4px;
+  text-align:left;display:inline-block;font-size:13px;
+}
+.page.template-split-draft .split-footer-date{
+  display:block;
+  margin-top:auto;
+  padding-top:10mm;
+  font-size:12px;
+  font-weight:700;
+  text-align:left;
+}
+
+/* ══════════════ NEW THEME 2: SMART MINIMAL GEOMETRIC SPLIT (স্মার্ট জিওমেট্রিক) ══════════════ */
+.page.template-split-smart .frame{
+  border:1.5px solid #111!important;
+  border-radius:0;
+  padding:12mm 12mm 10mm;
+}
+.page.template-split-smart .frame::before{
+  content:"";
+  position:absolute;
+  top:3mm;left:3mm;right:3mm;bottom:3mm;
+  border:0.75px solid #666;
+  pointer-events:none;
+}
+.page.template-split-smart .center{
+  border:1px solid #111;
+  padding:5mm;
+  background:#fafafa;
+}
+.page.template-split-smart .info-default,
+.page.template-split-smart .sections-default{
+  display:none;
+}
+.page.template-split-smart .split-body{
+  display:grid;
+  margin-top:7mm;
+}
+.page.template-split-smart .split-col{
+  border:1px solid #111;
+  padding:5mm 4mm;
+  background:#fff;
+  position:relative;
+}
+.page.template-split-smart .split-col .section-title{
+  background:#fff;
+  border:1px solid #111;
+  border-radius:0;
+  padding:2px 8px;
+  font-size:11.5px;
+}
+.page.template-split-smart .split-divider{
+  background:#111;
+  width:1px;
+}
+.page.template-split-smart .split-footer-date{
+  display:block;
+  margin-top:auto;
+  padding:3.5mm 5mm;
+  border:1px solid #111;
+  font-size:11.5px;
+  font-weight:700;
+  text-align:center;
+  background:#fafafa;
 }
 
 /* Modals */
@@ -460,10 +651,15 @@ body.dark .preview-wrap{background:rgba(30,32,44,0.5)}
             <div class="group-title">Cover Template</div>
             <label>Template নির্বাচন করুন</label>
             <select id="templateSelect">
-              <option value="minimal" selected>Minimal — Recommended</option>
+              <option value="minimal" selected>Minimal — Recommended (Default)</option>
+              <option value="split-draft">স্প্লিট ড্রাফট (ছবি অনুযায়ী দুই কলাম)</option>
+              <option value="split-smart">স্মার্ট জিওমেট্রিক স্প্লিট (Smart Split)</option>
               <option value="classic">Classic</option>
               <option value="modern">Modern</option>
               <option value="cultural">Bengali Cultural</option>
+              <option value="handwritten">খাতা স্টাইল (Notebook)</option>
+              <option value="elegant">এলিগ্যান্ট কর্নার</option>
+              <option value="boxed">বক্সড কার্ড</option>
             </select>
           </div>
 
@@ -509,6 +705,13 @@ body.dark .preview-wrap{background:rgba(30,32,44,0.5)}
               <option value="3px">Thick (3px)</option>
             </select>
           </div>
+
+          <div class="group">
+            <div class="group-title">ফন্ট সাইজ কাস্টমাইজেশন</div>
+            <div class="hint">প্রতিটি লাইনের ফন্ট সাইজ আলাদাভাবে ছোট-বড় করুন।</div>
+            <div id="fontSizeControls"></div>
+            <button class="fs-reset" type="button" id="fontResetBtn">↺ সব ফন্ট সাইজ রিসেট</button>
+          </div>
         </div>
 
         <div class="ui-tools">
@@ -531,68 +734,100 @@ body.dark .preview-wrap{background:rgba(30,32,44,0.5)}
           <div class="frame" id="frame">
 
             <div class="center">
-              <div class="college">টঙ্গী সরকারি কলেজ, গাজীপুর</div>
-              <div class="dept">বাংলা বিভাগ</div>
+              <div class="college" data-fs="college">টঙ্গী সরকারি কলেজ, গাজীপুর</div>
+              <div class="dept" data-fs="dept">বাংলা বিভাগ</div>
 
               <div class="ornament" aria-hidden="true">
                 <span></span><i>◆</i><span></span>
               </div>
 
-              <div class="pill">
+              <div class="pill" data-fs="pill">
                 অ্যাসাইনমেন্ট নং– <span id="oAssignment">০১</span>
               </div>
             </div>
 
-            <div class="info">
-              <div class="row">
+            <!-- Title & Course (Common Top) -->
+            <div class="info" style="margin-top:6mm">
+              <div class="row" data-fs="titleRow">
                 <div class="key">শিরোনাম</div><div>:</div>
                 <div class="value" id="oTitle"></div>
               </div>
-              <div class="row">
+              <div class="row" data-fs="courseRow">
                 <div class="key">কোর্স নাম ও কোড</div><div>:</div>
                 <div class="value" id="oCourse"></div>
               </div>
             </div>
 
-            <div class="section">
-              <div class="ornament" aria-hidden="true">
-                <span></span><i>◆</i><span></span>
+            <!-- STANDARD DEFAULT LAYOUT -->
+            <div class="sections-default">
+              <div class="section">
+                <div class="ornament" aria-hidden="true">
+                  <span></span><i>◆</i><span></span>
+                </div>
+                <div class="section-title" data-fs="sectionTitle1">নির্দেশনায়</div>
+                <div class="person" data-fs="teacherBlock">
+                  <strong id="oTeacher"></strong><br>
+                  <span id="oDesignation"></span>
+                </div>
               </div>
-              <div class="section-title">নির্দেশনায়</div>
-              <div class="person">
-                <strong id="oTeacher"></strong><br>
-                <span id="oDesignation"></span>
+
+              <div class="section">
+                <div class="ornament" aria-hidden="true">
+                  <span></span><i>◆</i><span></span>
+                </div>
+                <div class="section-title" data-fs="sectionTitle2">উপস্থাপনায়</div>
+              </div>
+
+              <div class="info info-default" style="margin-top:5mm">
+                <div class="row" data-fs="nameRow">
+                  <div class="key">নাম</div><div>:</div>
+                  <div class="value" id="oStudent"></div>
+                </div>
+                <div class="row" data-fs="classRow">
+                  <div class="key">শ্রেণি</div><div>:</div>
+                  <div class="value" id="oClass"></div>
+                </div>
+                <div class="row" data-fs="rollRow">
+                  <div class="key">রোল</div><div>:</div>
+                  <div class="value" id="oRoll"></div>
+                </div>
+                <div class="row" data-fs="sessionRow">
+                  <div class="key">শিক্ষাবর্ষ</div><div>:</div>
+                  <div class="value" id="oSession"></div>
+                </div>
+                <div class="row" data-fs="dateRow">
+                  <div class="key">জমাদানের তারিখ</div><div>:</div>
+                  <div class="value" id="oDate"></div>
+                </div>
               </div>
             </div>
 
-            <div class="section">
-              <div class="ornament" aria-hidden="true">
-                <span></span><i>◆</i><span></span>
+            <!-- SPLIT 2-COLUMN LAYOUT (FOR IMAGE-INSPIRED & SMART GEOMETRIC THEMES) -->
+            <div class="split-body">
+              <div class="split-col">
+                <div class="section-title" data-fs="sectionTitle1">নির্দেশনায়:</div>
+                <div class="person" data-fs="teacherBlock" style="text-align:left;margin-top:2mm;line-height:1.7">
+                  <strong id="sTeacher"></strong><br>
+                  <span id="sDesignation"></span>
+                </div>
               </div>
-              <div class="section-title">উপস্থাপনায়</div>
+
+              <div class="split-divider"></div>
+
+              <div class="split-col">
+                <div class="section-title" data-fs="sectionTitle2">উপস্থাপনায়:</div>
+                <div style="text-align:left;margin-top:2mm;line-height:1.75">
+                  <div data-fs="nameRow"><strong>নাম:</strong> <span id="sStudent"></span></div>
+                  <div data-fs="classRow"><strong>শ্রেণি:</strong> <span id="sClass"></span></div>
+                  <div data-fs="rollRow"><strong>রোল:</strong> <span id="sRoll"></span></div>
+                  <div data-fs="sessionRow"><strong>শিক্ষাবর্ষ:</strong> <span id="sSession"></span></div>
+                </div>
+              </div>
             </div>
 
-            <div class="info" style="margin-top:5mm">
-              <div class="row">
-                <div class="key">নাম</div><div>:</div>
-                <div class="value" id="oStudent"></div>
-              </div>
-              <div class="row">
-                <div class="key">শ্রেণি</div><div>:</div>
-                <div class="value" id="oClass"></div>
-              </div>
-              <div class="row">
-                <div class="key">রোল</div><div>:</div>
-                <div class="value" id="oRoll"></div>
-              </div>
-              <div class="row">
-                <div class="key">শিক্ষাবর্ষ</div><div>:</div>
-                <div class="value" id="oSession"></div>
-              </div>
-              <div class="row">
-                <div class="key">জমাদানের তারিখ</div><div>:</div>
-                <div class="value" id="oDate"></div>
-              </div>
+            <!-- Submission Date footer for split styles -->
+            <div class="split-footer-date" data-fs="dateRow">
+              জমাদানের তারিখ: <span id="sDate"></span>
             </div>
 
             <div class="bottom">
@@ -676,10 +911,15 @@ body.dark .preview-wrap{background:rgba(30,32,44,0.5)}
           <div>
             <label>Template</label>
             <select id="m_template">
-              <option value="minimal">Minimal</option>
+              <option value="minimal">Minimal — Recommended (Default)</option>
+              <option value="split-draft">স্প্লিট ড্রাফট (ছবি অনুযায়ী দুই কলাম)</option>
+              <option value="split-smart">স্মার্ট জিওমেট্রিক স্প্লিট (Smart Split)</option>
               <option value="classic">Classic</option>
               <option value="modern">Modern</option>
               <option value="cultural">Cultural</option>
+              <option value="handwritten">খাতা স্টাইল (Notebook)</option>
+              <option value="elegant">এলিগ্যান্ট কর্নার</option>
+              <option value="boxed">বক্সড কার্ড</option>
             </select>
           </div>
           <div>
@@ -825,20 +1065,39 @@ const TEACHERS_DB = [
 const MULTI_STORAGE_KEY = 'assignmentCoverHub_assignments_v1';
 
 const pairs = {
-  assignment: 'oAssignment',
-  title: 'oTitle',
-  course: 'oCourse',
-  teacher: 'oTeacher',
-  designation: 'oDesignation',
-  student: 'oStudent',
-  className: 'oClass',
-  roll: 'oRoll',
-  session: 'oSession'
+  assignment: ['oAssignment'],
+  title: ['oTitle'],
+  course: ['oCourse'],
+  teacher: ['oTeacher', 'sTeacher'],
+  designation: ['oDesignation', 'sDesignation'],
+  student: ['oStudent', 'sStudent'],
+  className: ['oClass', 'sClass'],
+  roll: ['oRoll', 'sRoll'],
+  session: ['oSession', 'sSession']
 };
 
 let assignments = [];
 let currentAssignmentId = null;
 let itemToDeleteId = null;
+let currentFontSizes = {};
+
+const FONT_TARGETS = [
+  { key: "college",       label: "কলেজের নাম",                 default: 20 },
+  { key: "dept",          label: "বিভাগের নাম",                 default: 14 },
+  { key: "pill",          label: "অ্যাসাইনমেন্ট নং ব্যাজ",       default: 12 },
+  { key: "titleRow",      label: "শিরোনাম লাইন",                default: 11 },
+  { key: "courseRow",     label: "কোর্স নাম ও কোড লাইন",         default: 11 },
+  { key: "sectionTitle1", label: "‘নির্দেশনায়’ টাইটেল",         default: 12 },
+  { key: "teacherBlock",  label: "শিক্ষকের নাম ও পদবি",          default: 12 },
+  { key: "sectionTitle2", label: "‘উপস্থাপনায়’ টাইটেল",         default: 12 },
+  { key: "nameRow",       label: "শিক্ষার্থীর নাম লাইন",         default: 11 },
+  { key: "classRow",      label: "শ্রেণি লাইন",                 default: 11 },
+  { key: "rollRow",       label: "রোল লাইন",                    default: 11 },
+  { key: "sessionRow",    label: "শিক্ষাবর্ষ লাইন",              default: 11 },
+  { key: "dateRow",       label: "জমাদানের তারিখ লাইন",          default: 11 }
+];
+const FONT_MIN = 7;
+const FONT_MAX = 32;
 
 function formatDate(v){
   if(!v) return "";
@@ -854,27 +1113,19 @@ function formatBengaliDisplayDate(v){
   return `${parts[2]}-${parts[1]}-${parts[0].slice(-2)}`;
 }
 
-/* ---------- Filesystem-safe filename helpers ----------
-   Android/most filesystems cap filenames at 255 BYTES (not characters).
-   Bengali characters take ~3 bytes each in UTF-8, so a long Bengali
-   assignment title can silently blow past that limit and the OS refuses
-   to save the file ("Failed to save document" / "download failed").
-   These helpers sanitize punctuation the OS may reject and hard-cap the
-   final filename by byte length so saving never fails for this reason. */
 function sanitizeFilenamePart(s){
   return (s || "")
     .trim()
-    .replace(/[\\/:*?"<>|]/g, "")           // characters forbidden on most filesystems
-    .replace(/[\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F]/g, "") // curly quotes
-    .replace(/[\u2013\u2014\u2015]/g, "-")  // en/em dash -> hyphen
-    .replace(/[\u2026]/g, "")               // ellipsis
+    .replace(/[\\/:*?"<>|]/g, "")
+    .replace(/[\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F]/g, "")
+    .replace(/[\u2013\u2014\u2015]/g, "-")
+    .replace(/[\u2026]/g, "")
     .replace(/\s+/g, "_");
 }
 
 function truncateBytes(str, maxBytes){
   if(!str) return "";
   if(typeof TextEncoder === "undefined"){
-    // very conservative fallback: assume worst case 4 bytes/char
     return str.slice(0, Math.floor(maxBytes / 4));
   }
   const encoder = new TextEncoder();
@@ -886,20 +1137,11 @@ function truncateBytes(str, maxBytes){
   return result;
 }
 
-function safeFilename(s, maxBytes){
-  const cleaned = sanitizeFilenamePart(s);
-  const capped = maxBytes ? truncateBytes(cleaned, maxBytes) : cleaned;
-  return capped.replace(/^_+|_+$/g, "") || "Assignment";
-}
-
-/* Builds a final filename from parts, guaranteeing the WHOLE result
-   (including extension) stays well under the 255-byte OS limit. */
 function buildSafeFilename(parts, extension, maxTotalBytes){
-  maxTotalBytes = maxTotalBytes || 150; // safe margin under 255
+  maxTotalBytes = maxTotalBytes || 150;
   const extBytes = new Blob([extension]).size;
   const budget = Math.max(20, maxTotalBytes - extBytes);
 
-  // give each part a fair share of the byte budget first
   const perPartBudget = Math.floor(budget / parts.length);
   let joined = parts
     .map(p => truncateBytes(sanitizeFilenamePart(p), perPartBudget))
@@ -979,13 +1221,15 @@ function initApp(){
       presentationName: "",
       template: "minimal",
       borderStyle: "solid",
-      borderWidth: "1px"
+      borderWidth: "1px",
+      fontSizes: {}
     };
     assignments = [sample];
     saveAssignmentsToStorage();
   }
 
   renderAssignments(assignments);
+  populateFontControls();
   bindBuilderEvents();
   initTheme();
   registerPWA();
@@ -1022,7 +1266,6 @@ function switchView(viewName){
   }
 }
 
-/* ---------- Deadline countdown badge ---------- */
 function getDeadlineBadge(dateStr){
   if(!dateStr) return { text: "📅 তারিখ নির্ধারিত নেই", cls: "due-none" };
 
@@ -1248,18 +1491,25 @@ function generatePdfFor(id){
   }
 
   applyBorder();
+  applyFontSizes(item.fontSizes || {});
   updatePreview();
   switchView('builder');
 }
 
 function updatePreview(){
-  Object.entries(pairs).forEach(([a,b])=>{
-    const el = document.getElementById(a);
-    const target = document.getElementById(b);
-    if(el && target) target.textContent = el.value;
+  Object.entries(pairs).forEach(([inp, targets]) => {
+    const val = (document.getElementById(inp) || {}).value || "";
+    targets.forEach(tId => {
+      const el = document.getElementById(tId);
+      if(el) el.textContent = val;
+    });
   });
   const dVal = document.getElementById("date").value;
-  document.getElementById("oDate").textContent = formatDate(dVal);
+  const formatted = formatDate(dVal);
+  const oDate = document.getElementById("oDate");
+  const sDate = document.getElementById("sDate");
+  if(oDate) oDate.textContent = formatted;
+  if(sDate) sDate.textContent = formatted;
 }
 
 function applyBorder(){
@@ -1270,9 +1520,50 @@ function applyBorder(){
   f.style.setProperty("--border-width", bWidth);
 }
 
+function applyFontSizes(sizes){
+  currentFontSizes = sizes || {};
+  FONT_TARGETS.forEach(t=>{
+    const px = currentFontSizes[t.key] || t.default;
+    document.querySelectorAll(`[data-fs="${t.key}"]`).forEach(el=>{
+      el.style.fontSize = px + "px";
+    });
+    const valEl = document.getElementById('fsVal_' + t.key);
+    if(valEl) valEl.textContent = px + "px";
+  });
+}
+
+function changeFontSize(key, delta){
+  const target = FONT_TARGETS.find(t => t.key === key);
+  if(!target) return;
+  const current = currentFontSizes[key] || target.default;
+  const next = Math.min(FONT_MAX, Math.max(FONT_MIN, current + delta));
+  currentFontSizes[key] = next;
+  document.querySelectorAll(`[data-fs="${key}"]`).forEach(el=>{
+    el.style.fontSize = next + "px";
+  });
+  const valEl = document.getElementById('fsVal_' + key);
+  if(valEl) valEl.textContent = next + "px";
+  syncBackToActiveAssignment();
+}
+
+function populateFontControls(){
+  const container = document.getElementById('fontSizeControls');
+  if(!container) return;
+  container.innerHTML = FONT_TARGETS.map(t => `
+    <div class="fs-row">
+      <div class="fs-label">${t.label}</div>
+      <div class="fs-controls">
+        <button type="button" class="fs-btn" onclick="changeFontSize('${t.key}',-1)">−</button>
+        <span class="fs-val" id="fsVal_${t.key}">${t.default}px</span>
+        <button type="button" class="fs-btn" onclick="changeFontSize('${t.key}',1)">＋</button>
+      </div>
+    </div>
+  `).join('');
+}
+
 function applyTemplate(val){
   const page = document.getElementById('page');
-  page.classList.remove('template-minimal','template-classic','template-modern','template-cultural');
+  page.classList.remove('template-minimal','template-classic','template-modern','template-cultural','template-handwritten','template-elegant','template-boxed','template-split-draft','template-split-smart');
   page.classList.add('template-' + val);
   const sel = document.getElementById('templateSelect');
   if(sel && sel.value !== val) sel.value = val;
@@ -1284,21 +1575,29 @@ function resetRecommended(){
   document.getElementById("borderStyle").value = "solid";
   document.getElementById("borderWidth").value = "1px";
   applyBorder();
+  applyFontSizes({});
 }
 
 function bindBuilderEvents(){
-  Object.entries(pairs).forEach(([a,b])=>{
-    const el = document.getElementById(a);
+  Object.entries(pairs).forEach(([inp, targets]) => {
+    const el = document.getElementById(inp);
     if(el){
       el.addEventListener("input", ()=>{
-        document.getElementById(b).textContent = el.value;
+        targets.forEach(tId => {
+          const tEl = document.getElementById(tId);
+          if(tEl) tEl.textContent = el.value;
+        });
         syncBackToActiveAssignment();
       });
     }
   });
 
   document.getElementById("date").addEventListener("input", e=>{
-    document.getElementById("oDate").textContent = formatDate(e.target.value);
+    const formatted = formatDate(e.target.value);
+    const oDate = document.getElementById("oDate");
+    const sDate = document.getElementById("sDate");
+    if(oDate) oDate.textContent = formatted;
+    if(sDate) sDate.textContent = formatted;
     syncBackToActiveAssignment();
   });
 
@@ -1309,6 +1608,11 @@ function bindBuilderEvents(){
 
   document.getElementById("borderWidth").addEventListener("change", ()=>{
     applyBorder();
+    syncBackToActiveAssignment();
+  });
+
+  document.getElementById("fontResetBtn").addEventListener("click", ()=>{
+    applyFontSizes({});
     syncBackToActiveAssignment();
   });
 
@@ -1337,7 +1641,10 @@ function bindBuilderEvents(){
   });
 
   document.getElementById('clearBtn').addEventListener('click', ()=>{
-    ['student','roll','date'].forEach(id => document.getElementById(id).value = '');
+    ['student','roll','date'].forEach(id => {
+      const el = document.getElementById(id);
+      if(el) el.value = '';
+    });
     updatePreview();
   });
 
@@ -1375,6 +1682,7 @@ function syncBackToActiveAssignment(){
     assignments[idx].template = document.getElementById('templateSelect').value;
     assignments[idx].borderStyle = document.getElementById('borderStyle').value;
     assignments[idx].borderWidth = document.getElementById('borderWidth').value;
+    assignments[idx].fontSizes = { ...currentFontSizes };
     saveAssignmentsToStorage();
   }
 }
@@ -1385,11 +1693,9 @@ function downloadPDF(){
   const roll = document.getElementById("roll").value;
   const title = document.getElementById("title").value;
 
-  // Cap total byte length so Android's "Save as PDF" print flow never
-  // fails with "Failed to save document" on long Bengali titles.
   const filenameNoExt = buildSafeFilename(
     [title, name, roll ? `Roll_${roll}` : ""],
-    "", // no extension here — .pdf is appended by the print dialog itself
+    "",
     120
   );
 
@@ -1406,7 +1712,6 @@ function downloadPDF(){
   }, 120);
 }
 
-/* ---------- Small toast with a guaranteed manual fallback link ---------- */
 function showDownloadToast(url, filename){
   let toast = document.getElementById('dlToast');
   if(toast) toast.remove();
@@ -1429,8 +1734,6 @@ function showDownloadToast(url, filename){
   };
   toast.querySelector('.dl-close').addEventListener('click', remove);
 
-  // Tapping the fallback link should also try to open the image directly
-  // (in case the download attribute is ignored on some mobile browsers).
   toast.querySelector('#dlToastLink').addEventListener('click', (e)=>{
     setTimeout(remove, 400);
   });
@@ -1438,29 +1741,20 @@ function showDownloadToast(url, filename){
   setTimeout(remove, 12000);
 }
 
-/* ROBUST BLOB-BASED PNG DOWNLOAD (Fixes Mobile Chrome/Android "Download failed" / auto-cancel issue) */
 async function downloadHighQualityPNG(){
-
   updatePreview();
 
   const page = document.getElementById('page');
-
   const student = document.getElementById("student").value.trim();
   const roll = document.getElementById("roll").value.trim();
   const title = document.getElementById("title").value.trim();
 
-  // Filename ছোট ও Android-compatible রাখা হচ্ছে — total byte length is
-  // hard-capped (not just character count) because Android's filesystem
-  // rejects filenames over 255 BYTES, and long Bengali titles blow past
-  // that easily (each Bengali character is ~3 bytes in UTF-8). This is
-  // what was causing "1 download failed" on long assignment titles.
   const finalName = buildSafeFilename(
     [title, student, roll ? `Roll_${roll}` : ""],
     ".png",
     120
   );
 
-  // Button reference
   const buttons = document.querySelectorAll(
     'button[onclick="downloadHighQualityPNG()"]'
   );
@@ -1474,40 +1768,28 @@ async function downloadHighQualityPNG(){
   let blobUrl = null;
 
   try {
-
-    // Font load complete হওয়ার জন্য অপেক্ষা
     if (document.fonts && document.fonts.ready) {
       await document.fonts.ready;
     }
 
-    // Mobile-friendly high quality scale
     const scale = 2;
 
     const canvas = await html2canvas(page, {
       scale: scale,
-
       useCORS: true,
       allowTaint: false,
-
       backgroundColor: "#ffffff",
-
       logging: false,
-
       imageTimeout: 15000,
-
       width: page.offsetWidth,
       height: page.offsetHeight,
-
       scrollX: 0,
       scrollY: 0,
-
       windowWidth: page.offsetWidth,
       windowHeight: page.offsetHeight
     });
 
-    // Canvas → PNG Blob
     const blob = await new Promise((resolve, reject) => {
-
       canvas.toBlob(
         (result) => {
           if (result) {
@@ -1519,7 +1801,6 @@ async function downloadHighQualityPNG(){
         "image/png",
         1.0
       );
-
     });
 
     if (!blob || blob.size === 0) {
@@ -1528,9 +1809,6 @@ async function downloadHighQualityPNG(){
 
     blobUrl = URL.createObjectURL(blob);
 
-    // Android Chrome compatible download — trigger immediately, no artificial delay
-    // (delays after the async work can make some mobile browsers drop/cancel
-    // the download because it no longer looks like a direct user action)
     const link = document.createElement("a");
     link.style.display = "none";
     link.href = blobUrl;
@@ -1541,33 +1819,19 @@ async function downloadHighQualityPNG(){
     link.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true, view: window }));
     document.body.removeChild(link);
 
-    // Always show a manual fallback link too — some mobile browsers silently
-    // swallow the programmatic download without any error, so this guarantees
-    // the user always has a working way to save the file.
     showDownloadToast(blobUrl, finalName);
 
-    // Revoke later, well after both the auto-download and the fallback link
-    // have had a chance to be used.
     setTimeout(() => {
       if(blobUrl) URL.revokeObjectURL(blobUrl);
     }, 60000);
 
-    // Memory release
     canvas.width = 1;
     canvas.height = 1;
 
   } catch (error) {
-
     console.error("PNG generation error:", error);
 
-    /*
-      Fallback:
-      যদি Android Chrome blob download block করে,
-      তাহলে PNG নতুন tab-এ open হবে।
-    */
-
     try {
-
       const fallbackCanvas = await html2canvas(page, {
         scale: 1.5,
         useCORS: true,
@@ -1584,7 +1848,6 @@ async function downloadHighQualityPNG(){
       const newWindow = window.open();
 
       if (newWindow) {
-
         newWindow.document.write(`
           <!doctype html>
           <html>
@@ -1592,88 +1855,35 @@ async function downloadHighQualityPNG(){
             <meta name="viewport" content="width=device-width,initial-scale=1">
             <title>Assignment PNG</title>
             <style>
-              html,body{
-                margin:0;
-                padding:0;
-                background:#333;
-                text-align:center;
-              }
-
-              img{
-                max-width:100%;
-                height:auto;
-                display:block;
-                margin:auto;
-              }
-
-              .info{
-                position:fixed;
-                top:0;
-                left:0;
-                right:0;
-                padding:12px;
-                background:#111;
-                color:#fff;
-                font-family:Arial,sans-serif;
-                font-size:14px;
-                z-index:10;
-              }
-
-              .space{
-                height:55px;
-              }
+              html,body{margin:0;padding:0;background:#333;text-align:center;}
+              img{max-width:100%;height:auto;display:block;margin:auto;}
+              .info{position:fixed;top:0;left:0;right:0;padding:12px;background:#111;color:#fff;font-family:Arial,sans-serif;font-size:14px;z-index:10;}
+              .space{height:55px;}
             </style>
           </head>
-
           <body>
-
-            <div class="info">
-              PNG তৈরি হয়েছে — ছবির উপর Long Press করে
-              <b>Download image</b> নির্বাচন করুন।
-            </div>
-
+            <div class="info">PNG তৈরি হয়েছে — ছবির উপর Long Press করে <b>Download image</b> নির্বাচন করুন।</div>
             <div class="space"></div>
-
             <img src="${fallbackUrl}" alt="Assignment Cover">
-
           </body>
           </html>
         `);
-
         newWindow.document.close();
-
       } else {
-
-        alert(
-          "PNG তৈরি হয়েছে কিন্তু Chrome download করতে পারেনি। " +
-          "Chrome-এর Download permission/check করে আবার চেষ্টা করুন।"
-        );
-
+        alert("PNG তৈরি হয়েছে কিন্তু Chrome download করতে পারেনি। Chrome-এর Download permission/check করে আবার চেষ্টা করুন।");
       }
-
     } catch (fallbackError) {
-
       console.error("PNG fallback error:", fallbackError);
-
-      alert(
-        "PNG তৈরি করা সম্ভব হয়নি। " +
-        "দয়া করে আবার চেষ্টা করুন অথবা High Quality PDF ব্যবহার করুন।"
-      );
-
+      alert("PNG তৈরি করা সম্ভব হয়নি। দয়া করে আবার চেষ্টা করুন অথবা High Quality PDF ব্যবহার করুন।");
     }
 
   } finally {
-
-    // Button আবার active করা
     buttons.forEach(btn => {
       btn.disabled = false;
-
       if (btn.dataset.oldText) {
         btn.innerHTML = btn.dataset.oldText;
       }
-
     });
-
   }
 }
 
@@ -1691,9 +1901,7 @@ function initTheme(){
   }
 }
 
-/* ---------- PWA: installable + offline shell ---------- */
 function registerPWA(){
-  // Web App Manifest — injected as a data: URI so the whole app stays a single file.
   const manifest = {
     name: "Assignment Cover Hub & Builder",
     short_name: "Assignment Hub",
@@ -1726,7 +1934,6 @@ function registerPWA(){
   link.href = manifestUrl;
   document.head.appendChild(link);
 
-  // Meta tags for "Add to Home Screen" (Android/iOS)
   const metas = [
     { name: 'theme-color', content: '#6d5dfc' },
     { name: 'mobile-web-app-capable', content: 'yes' },
@@ -1743,11 +1950,6 @@ function registerPWA(){
     }
   });
 
-  // Service worker for basic offline caching of the app shell.
-  // Registered from a Blob URL so the whole app can stay a single file.
-  // NOTE: this only works when the page is served over http(s) — it is
-  // skipped automatically on file:// or unsupported browsers, so it never
-  // breaks the app.
   if('serviceWorker' in navigator && location.protocol.startsWith('http')){
     const swSource = `
       const CACHE_NAME = 'assignment-hub-cache-v1';
@@ -1776,9 +1978,7 @@ function registerPWA(){
     const swBlob = new Blob([swSource], { type: 'application/javascript' });
     const swUrl = URL.createObjectURL(swBlob);
 
-    navigator.serviceWorker.register(swUrl).catch(()=>{
-      // Silently ignore — offline caching is a nice-to-have, not required.
-    });
+    navigator.serviceWorker.register(swUrl).catch(()=>{});
   }
 }
 
