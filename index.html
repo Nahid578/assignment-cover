@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<!-- html2canvas for Ultra High-DPI PNG generation fallback -->
+<!-- html2canvas for Ultra High-DPI PNG generation -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <style>
@@ -37,7 +37,6 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 
-/* Ambient glow */
 .app{position:relative;max-width:1240px;margin:auto;padding:20px 18px 80px}
 .app:before,.app:after{
   content:"";position:fixed;z-index:-1;border-radius:999px;filter:blur(50px);
@@ -58,7 +57,6 @@ body{
 .nav-brand span{color:var(--accent)}
 .nav-links{display:flex;align-items:center;gap:10px}
 
-/* Liquid Glass buttons & inputs */
 button{
   border:0;border-radius:11px;padding:10px 16px;font:600 13px system-ui,-apple-system,sans-serif;
   cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:7px;
@@ -80,23 +78,15 @@ button:active{transform:translateY(0.5px) scale(0.98)}
 .danger:hover{background:#fca5a5;color:#7f1d1d}
 .badge{font:12px system-ui,sans-serif;background:rgba(255,255,255,0.6);border:1px solid var(--glass-border);border-radius:999px;padding:7px 14px}
 
-/* Page Views */
 .view-section{display:none;animation:uiIn .4s cubic-bezier(.16,1,.3,1) both}
 .view-section.active{display:block}
 
-/* ==================================================
-   HOME / DASHBOARD STYLES
-================================================== */
-.dashboard-header{
-  display:flex;justify-content:space-between;align-items:flex-end;gap:16px;
-  flex-wrap:wrap;margin-bottom:24px;
-}
+/* Dashboard */
+.dashboard-header{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:24px}
 .dashboard-title h1{font-size:24px;margin:0 0 4px;font-weight:700}
 .dashboard-title p{margin:0;font:13.5px system-ui,sans-serif;color:var(--muted)}
 
-.search-bar{
-  flex:1;min-width:240px;max-width:400px;position:relative;
-}
+.search-bar{flex:1;min-width:240px;max-width:400px;position:relative}
 .search-bar input{
   width:100%;padding:11px 16px 11px 38px;border-radius:14px;
   border:1px solid var(--glass-border);background:var(--glass-bg);
@@ -106,9 +96,7 @@ button:active{transform:translateY(0.5px) scale(0.98)}
 .search-bar input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-subtle)}
 .search-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#888;font-size:14px;pointer-events:none}
 
-.assignment-grid{
-  display:grid;grid-template-columns:repeat(auto-fill, minmax(330px, 1fr));gap:20px;
-}
+.assignment-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(330px, 1fr));gap:20px}
 .assignment-card{
   background:var(--glass-bg);border:1px solid var(--glass-border);
   border-radius:20px;padding:22px;box-shadow:var(--card-shadow);
@@ -143,7 +131,6 @@ button:active{transform:translateY(0.5px) scale(0.98)}
 .card-actions{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:7px;margin-top:auto}
 .card-actions button{padding:8px 6px;font-size:12px;border-radius:9px}
 
-/* Empty State */
 .empty-state{
   text-align:center;padding:60px 20px;background:var(--glass-bg);
   border:1px dashed var(--glass-border);border-radius:24px;
@@ -153,13 +140,8 @@ button:active{transform:translateY(0.5px) scale(0.98)}
 .empty-state h3{font-size:18px;margin:0 0 6px}
 .empty-state p{font:13.5px system-ui,sans-serif;color:var(--muted);margin:0 0 20px}
 
-/* ==================================================
-   BUILDER VIEW & COVER LAYOUT (PRESERVED)
-================================================== */
-.builder-nav{
-  display:flex;justify-content:space-between;align-items:center;
-  gap:12px;margin-bottom:18px;flex-wrap:wrap;
-}
+/* Cover Builder */
+.builder-nav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}
 .layout{display:grid;grid-template-columns:370px 1fr;gap:20px;align-items:start}
 .panel{
   background:var(--glass-bg-strong);border:1px solid var(--glass-border);
@@ -199,16 +181,18 @@ input:focus,select:focus{
   overflow:auto;backdrop-filter:blur(10px);box-shadow:var(--card-shadow);
 }
 
-/* EXACT A4 canvas (210mm x 297mm) */
+/* EXACT A4 canvas */
 .page{
   width:210mm;height:297mm;min-width:210mm;min-height:297mm;
   max-width:210mm;max-height:297mm;background:#fff;position:relative;
   overflow:hidden;box-shadow:0 6px 28px rgba(0,0,0,0.12);box-sizing:border-box;
 }
+
+/* Pure Black Borders for Clean Print & Preview */
 .frame{
   position:absolute;inset:5mm;padding:15mm 13mm 10mm;
   display:flex;flex-direction:column;
-  border:var(--border-width) var(--border-style) #555;
+  border:var(--border-width) var(--border-style) #111;
   overflow:hidden;background:#fff;
 }
 
@@ -219,49 +203,76 @@ input:focus,select:focus{
   display:flex;align-items:center;justify-content:center;gap:7mm;
   margin:8mm 0 6mm;height:4mm;
 }
-.ornament span{height:1px;background:#222;flex:0 1 34mm}
+.ornament span{height:1px;background:#111;flex:0 1 34mm}
 .ornament i{font:normal 12px/1 serif;color:#111}
 
 .pill{
-  display:inline-block;border:1px solid #777;border-radius:999px;
-  padding:4px 15px;font-size:12px;font-weight:600;
+  display:inline-block;border:1px solid #111;border-radius:999px;
+  padding:4px 15px;font-size:12px;font-weight:600;background:#fff;color:#111;
 }
 .info{margin-top:11mm}
 .row{
   display:grid;grid-template-columns:47mm 7mm 1fr;
-  border-bottom:1px dotted #aaa;padding:4.2mm 0;
+  border-bottom:1px dotted #888;padding:4.2mm 0;
   font-size:11px;align-items:start;
 }
 .key{font-weight:700}.value{line-height:1.65;overflow-wrap:anywhere}
 
 .section{text-align:center;margin-top:6mm}
 .section-title{
-  display:inline-block;border:1px solid #777;border-radius:999px;
-  padding:4px 17px;font-size:12px;font-weight:700;
+  display:inline-block;border:1px solid #111;border-radius:999px;
+  padding:4px 17px;font-size:12px;font-weight:700;background:#fff;color:#111;
 }
 .person{text-align:center;margin-top:4.5mm;font-size:12px;line-height:1.8}
 .bottom{margin-top:auto;text-align:center}
 .bottom .ornament{margin:0}
 
-/* Templates */
-.page.template-modern .frame{border-width:1.5px;border-radius:7mm;box-shadow:inset 0 0 0 1px rgba(109,93,252,.12)}
-.page.template-modern .college{letter-spacing:.2px}
-.page.template-modern .pill{border-radius:999px;background:#f4f1ff;border-color:#b9afff}
-.page.template-modern .ornament i{font-size:10px}
-.page.template-classic .frame{border-style:double!important;border-width:3px!important;border-radius:0}
-.page.template-classic .ornament i{font-size:9px}
-.page.template-classic .pill{border-radius:0;background:#fff}
-.page.template-cultural .frame{
-  border-width:1px!important;border-radius:2mm;
-  background:linear-gradient(#fff,#fff) padding-box,linear-gradient(90deg,#6d5dfc,#c084fc,#6d5dfc) border-box;
-  border:1px solid transparent!important;
+/* TEMPLATES - STRICTLY BLACK & WHITE */
+.page.template-modern .frame{
+  border-width:1.5px;
+  border-radius:7mm;
+  border-color:#111!important;
+  box-shadow:none;
 }
-.page.template-cultural .ornament span{border-top-style:dotted!important}
-.page.template-cultural .ornament i{font-size:11px;transform:rotate(45deg)}
+.page.template-modern .college{letter-spacing:.2px}
+.page.template-modern .pill{
+  border-radius:999px;
+  background:#fff!important;
+  border-color:#111!important;
+  color:#111!important;
+}
+.page.template-modern .ornament i{font-size:10px}
 
-/* ==================================================
-   MODAL DIALOG (ADD/EDIT & DELETE)
-================================================== */
+.page.template-classic .frame{
+  border-style:double!important;
+  border-width:3.5px!important;
+  border-color:#111!important;
+  border-radius:0;
+}
+.page.template-classic .ornament i{font-size:9px}
+.page.template-classic .pill{
+  border-radius:0;
+  background:#fff!important;
+  border-color:#111!important;
+}
+
+.page.template-cultural .frame{
+  border-style:solid!important;
+  border-width:1.5px!important;
+  border-color:#111!important;
+  border-radius:2mm;
+  background:#fff!important;
+}
+.page.template-cultural .ornament span{
+  border-top:1px dotted #111!important;
+  background:transparent!important;
+}
+.page.template-cultural .ornament i{
+  font-size:11px;
+  transform:rotate(45deg);
+}
+
+/* Modals */
 .modal-overlay{
   position:fixed;inset:0;background:rgba(15,15,30,0.45);backdrop-filter:blur(8px);
   -webkit-backdrop-filter:blur(8px);z-index:9999;display:none;align-items:center;
@@ -284,7 +295,7 @@ input:focus,select:focus{
 .modal-body .full-width{grid-column:1/-1}
 .modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:20px;border-top:1px solid rgba(0,0,0,0.08);padding-top:16px}
 
-/* Mobile Bottom Navigation */
+/* Mobile Nav */
 .bottom-nav{
   position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,0.85);
   backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
@@ -322,7 +333,7 @@ body.dark .group{border-color:rgba(255,255,255,0.1)}
 body.dark .bottom-nav{background:rgba(20,21,30,0.9);border-color:rgba(255,255,255,0.1)}
 body.dark .preview-wrap{background:rgba(30,32,44,0.5)}
 
-/* Native A4 Print Rules */
+/* Native A4 Print */
 @page{size:A4 portrait;margin:0}
 @media print{
   html,body{width:210mm;height:297mm;margin:0!important;padding:0!important;background:#fff!important}
@@ -341,8 +352,6 @@ body.dark .preview-wrap{background:rgba(30,32,44,0.5)}
     box-shadow:none!important;overflow:hidden!important;break-after:avoid-page!important;
   }
   .frame{break-inside:avoid!important;background:#fff!important}
-  .page.template-cultural .frame{background:#fff!important}
-  .page.template-modern .pill{background:#f4f1ff!important}
 }
 
 @keyframes uiIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
@@ -366,7 +375,6 @@ body.dark .preview-wrap{background:rgba(30,32,44,0.5)}
 <body>
 <div class="app">
 
-  <!-- Main Glass Navigation -->
   <header class="navbar">
     <div class="nav-brand" onclick="switchView('dashboard')">
       <span>✦</span> Assignment Hub
@@ -378,7 +386,7 @@ body.dark .preview-wrap{background:rgba(30,32,44,0.5)}
     </div>
   </header>
 
-  <!-- VIEW 1: HOME / DASHBOARD -->
+  <!-- VIEW 1: DASHBOARD -->
   <section id="view-dashboard" class="view-section active">
     <div class="dashboard-header">
       <div class="dashboard-title">
@@ -401,7 +409,7 @@ body.dark .preview-wrap{background:rgba(30,32,44,0.5)}
     </div>
   </section>
 
-  <!-- VIEW 2: COVER BUILDER & LIVE PREVIEW -->
+  <!-- VIEW 2: BUILDER -->
   <section id="view-builder" class="view-section">
     <div class="builder-nav">
       <button class="secondary" type="button" onclick="switchView('dashboard')">← Back to Home</button>
@@ -412,7 +420,6 @@ body.dark .preview-wrap{background:rgba(30,32,44,0.5)}
     </div>
 
     <div class="layout">
-      <!-- Control Panel -->
       <section class="panel">
         <h2>কভার পেজের তথ্য</h2>
 
@@ -497,7 +504,7 @@ body.dark .preview-wrap{background:rgba(30,32,44,0.5)}
         </div>
       </section>
 
-      <!-- Live A4 Preview Canvas -->
+      <!-- Live A4 Canvas -->
       <main class="preview-wrap">
         <div class="page" id="page">
           <div class="frame" id="frame">
@@ -579,7 +586,7 @@ body.dark .preview-wrap{background:rgba(30,32,44,0.5)}
     </div>
   </section>
 
-  <!-- MODAL 1: ADD / EDIT ASSIGNMENT (WITH PRESET DROPDOWNS) -->
+  <!-- ADD / EDIT MODAL -->
   <div id="assignmentModal" class="modal-overlay">
     <div class="modal-card">
       <div class="modal-header">
@@ -595,7 +602,6 @@ body.dark .preview-wrap{background:rgba(30,32,44,0.5)}
             <input id="m_title" required placeholder="যেমন: বঙ্কিমচন্দ্র চট্টোপাধ্যায়ের ‘কৃষ্ণকান্তের উইল’ উপন্যাস অবলম্বনে...">
           </div>
 
-          <!-- Quick Selector Dropdown -->
           <div class="full-width" style="background:rgba(109,93,252,0.06);padding:10px 14px;border-radius:12px;border:1px solid rgba(109,93,252,0.18)">
             <label style="margin-top:0;color:var(--accent)">⚡ শিক্ষক প্রিসেট সিলেক্ট করুন (অটোফিল হবে)</label>
             <select id="m_teacherPreset" onchange="onTeacherPresetSelected(this.value)">
@@ -612,7 +618,6 @@ body.dark .preview-wrap{background:rgba(30,32,44,0.5)}
             <input id="m_designation" required placeholder="যেমন: সহকারী অধ্যাপক (বাংলা বিভাগ)">
           </div>
 
-          <!-- Course Preset Dropdown -->
           <div class="full-width" style="background:rgba(109,93,252,0.06);padding:10px 14px;border-radius:12px;border:1px solid rgba(109,93,252,0.18)">
             <label style="margin-top:0;color:var(--accent)">⚡ কোর্স সিলেক্ট করুন (অটোফিল হবে)</label>
             <select id="m_coursePreset" onchange="onCoursePresetSelected(this.value)">
@@ -675,7 +680,7 @@ body.dark .preview-wrap{background:rgba(30,32,44,0.5)}
     </div>
   </div>
 
-  <!-- MODAL 2: CONFIRM DELETE -->
+  <!-- DELETE MODAL -->
   <div id="deleteModal" class="modal-overlay">
     <div class="modal-card" style="max-width:380px;text-align:center">
       <div style="font-size:36px;margin-bottom:10px">⚠️</div>
@@ -709,11 +714,7 @@ body.dark .preview-wrap{background:rgba(30,32,44,0.5)}
 
 </div>
 
-<!-- APPLICATION JAVASCRIPT LOGIC -->
 <script>
-/* ==================================================
-   TEACHER & COURSE PRESET DATABASE
-================================================== */
 const COURSES_DB = [
   { name: "বাংলাদেশ এবং বাঙালির সমাজ ও সংস্কৃতি", code: "২১১০০১" },
   { name: "বাংলা ভাষার ইতিহাস ও ব্যবহারিক বাংলা", code: "২১১০০৩" },
@@ -829,17 +830,13 @@ function formatBengaliDisplayDate(v){
   if(!v) return "নির্ধারিত নেই";
   const parts = v.split("-");
   if(parts.length < 3) return v;
-  const d = parts[2], m = parts[1], y = parts[0].slice(-2);
-  return `${d}-${m}-${y}`;
+  return `${parts[2]}-${parts[1]}-${parts[0].slice(-2)}`;
 }
 
 function safeFilename(s){
   return (s || "").trim().replace(/[\\/:*?"<>|]/g, "_").replace(/\s+/g, "_") || "Assignment";
 }
 
-/* ==================================================
-   POPULATE DROPDOWNS & HANDLE AUTO-SELECTION
-================================================== */
 function populatePresetDropdowns(){
   const tSel = document.getElementById('m_teacherPreset');
   tSel.innerHTML = '<option value="">-- শিক্ষক সিলেক্ট করুন (অপশনাল) --</option>';
@@ -888,9 +885,6 @@ function onCoursePresetSelected(idxVal){
   document.getElementById('m_courseCode').value = c.code;
 }
 
-/* ==================================================
-   INIT & STORAGE
-================================================== */
 function initApp(){
   populatePresetDropdowns();
   loadAssignments();
@@ -1014,9 +1008,6 @@ function escapeHtml(str) {
   return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
-/* ==================================================
-   ADD & EDIT
-================================================== */
 function openAddModal(){
   document.getElementById('modalTitleText').textContent = "Add Assignment";
   document.getElementById('modalAssignmentId').value = "";
@@ -1049,7 +1040,6 @@ function openEditModal(id){
   document.getElementById('m_template').value = item.template || "minimal";
   document.getElementById('m_borderStyle').value = item.borderStyle || "solid";
 
-  // Match dropdowns if existing
   const tIdx = TEACHERS_DB.findIndex(t => t.name === item.teacherName);
   document.getElementById('m_teacherPreset').value = tIdx !== -1 ? tIdx : "";
 
@@ -1120,9 +1110,6 @@ function closeModal(id){
   document.getElementById(id).classList.remove('open');
 }
 
-/* ==================================================
-   BUILDER PREPARATION & EVENT BINDINGS
-================================================== */
 function generatePdfFor(id){
   const item = assignments.find(a => a.id === id);
   if(!item) return;
@@ -1309,6 +1296,7 @@ function downloadPDF(){
   }, 120);
 }
 
+/* ROBUST BLOB-BASED PNG DOWNLOAD (Fixes Mobile Chrome/Android Download Failed error) */
 async function downloadHighQualityPNG(){
   updatePreview();
   const page = document.getElementById('page');
@@ -1318,20 +1306,35 @@ async function downloadHighQualityPNG(){
   const filename = `${title}_${name}_Roll_${roll}`.replace(/^_+|_+$/g, '') || "Assignment_Cover";
 
   try{
+    // High scale canvas render for sharp Bengali text
     const canvas = await html2canvas(page, {
-      scale: 3.5,
+      scale: 3,
       useCORS: true,
       allowTaint: true,
       backgroundColor: '#ffffff',
-      logging: false
+      logging: false,
+      windowWidth: page.scrollWidth,
+      windowHeight: page.scrollHeight
     });
 
-    const link = document.createElement('a');
-    link.download = `${filename}.png`;
-    link.href = canvas.toDataURL('image/png', 1.0);
-    link.click();
+    // Convert to Blob for seamless mobile file downloads
+    canvas.toBlob((blob) => {
+      if(!blob){
+        alert("PNG তৈরিতে সমস্যা হয়েছে। দয়া করে PDF ডাউনলোড অপশন ব্যবহার করুন।");
+        return;
+      }
+      const blobUrl = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.download = `${filename}.png`;
+      link.href = blobUrl;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      setTimeout(() => URL.revokeObjectURL(blobUrl), 2000);
+    }, 'image/png');
+
   }catch(err){
-    alert("Could not generate high quality PNG directly. Please use the 'High Quality PDF' button.");
+    alert("PNG ডাউনলোড করা সম্ভব হচ্ছে না। অনুগ্রহ করে 'High Quality PDF' অপশনটি ব্যবহার করুন।");
   }
 }
 
